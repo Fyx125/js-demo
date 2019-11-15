@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>transform3D盒子</title>
+    <style type="text/css">
+        .box{
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 200px auto;
+            transition: 5s all ease;
+            transform: perspective(700px) rotateX(0deg) rotateY(0deg);
+            transform-style: preserve-3d;
+        }
+        .box div{
+            width: 198px;
+            height: 198px;
+            border: 1px solid #000;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0,255,0,0.5);
+        }
+        .box:active{
+            transform: perspective(700px) rotateX(360deg) rotateY(180deg);
+        }
+        .box .front{
+            transform: translateZ(100px);
+        }
+        .box .back{
+            transform: translateZ(-100px)  scaleX(-1);
+        }
+        .box .left{
+            transform: rotateY(-90deg) translateZ(100px) ;
+        }
+        .box .right{
+            transform: rotateY(90deg) translateZ(100px) scale(-1);
+        }
+        .box .top{
+            transform: rotateX(90deg) translateZ(100px) scale(-1);
+        }
+        .box .down{
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="front">前</div>
+        <div class="back">后</div>
+        <div class="top">上</div>
+        <div class="down">下</div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>饼图</title>
+    <style type="text/css">
+        body{
+            background-color: #cccccc;
+            text-align: center;
+        }
+        #c1{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1" width="800px" height="600px"></canvas>
+
+
+<script type="text/javascript">
+    function d2a(n){
+        return n*Math.PI/180;
+    }
+    function a2d(n){
+        return n*180/Math.PI;
+    }
+    window.onload=function () {
+        let oC = document.getElementById('c1');
+        let gd = oC.getContext('2d');
+
+        let cx=400,cy=300,r=200;
+        let datas=[
+            {data:300,color:'#FC0'},
+            {data:200,color:'#CF0'},
+            {data:50,color:'#0CF'}
+        ];
+        function pie(startAng, endAng, color) {
+            let x=cx+Math.cos(d2a(startAng))*r;
+            let y=cy+Math.sin(d2a(startAng))*r;
+
+            gd.beginPath();
+
+            gd.moveTo(cx,cy);
+            gd.lineTo(x,y);
+
+            gd.arc(cx,cy,r,d2a(startAng),d2a(endAng),false);
+
+            gd.closePath();
+            gd.fillStyle=color;
+            gd.fill();
+        }
+        let sum=0,now=0;
+        datas.forEach(data=>{
+            sum+=data.data;
+        });
+        datas.forEach(data=>{
+            let ang=360*data.data/sum;
+            pie(now,now+ang,data.color);
+            now+=ang;
+        });
+
+
+        gd.font='bold 16px 宋体';
+        gd.fillStyle='#000';
+        gd.fillText('大',400,400);
+        gd.fillText('中',400,200);
+        gd.fillText('小',540,260);
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>今日头条首页demo</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .page .nav{
+            width: 100%;
+            overflow: hidden;
+            padding: 6px 0;
+            height: 14px;
+        }
+        .page .nav ul{
+
+        }
+        .page .nav ul li{
+            float: left;
+            width: 80px;
+            text-align: center;
+        }
+        .page .nav ul li.active{
+            color: #FF0000;
+        }
+        .page .wrap{
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+        }
+        .page .wrap .content{
+            height: 600px;
+            overflow: hidden;
+        }
+        .page .wrap .content .content-item{
+            width: 375px;
+            height: 600px;
+            float: left;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="nav">
+        <ul>
+            <li class="active">推荐</li>
+            <li>两会</li>
+            <li>笑话</li>
+            <li>美图</li>
+            <li>小说</li>
+            <li>视频</li>
+            <li>趣图</li>
+            <li>段子</li>
+            <li>内涵</li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="content">
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+            <div class="content-item"></div>
+        </div>
+    </div>
+</div>
+
+<script src="hammer.min.js" type="text/javascript"></script>
+<script src="jquery-3.4.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.onload=function () {
+        let oPage=document.querySelector('.page');
+        let oNav=document.querySelector('.page .nav');
+        let oNavUl=document.querySelector('.nav ul');
+        let oNavUlLi=oNavUl.children;
+
+        let oContent=document.querySelector('.content');
+        let oContentItem=document.querySelectorAll('.content .content-item');
+
+
+        oNavUl.style.width=oNavUlLi[0].offsetWidth*oNavUlLi.length+'px';
+        oContent.style.width=oContentItem[0].offsetWidth*oContentItem.length+'px';
+
+        //加载数据
+        function loadDate(index){
+            $.ajax({
+                url:`./data/${index+1}.text`,
+                success:res=>{
+                    oContentItem[index].innerHTML=res;
+                },
+                error:err=>{
+                    console.log('加载失败'+err);
+                }
+            });
+        }
+        loadDate(0);
+
+        //导航栏点击切换
+        Array.from(oNavUlLi).forEach((li,index)=>{
+            let hammer=new Hammer(li);
+            hammer.on('tap',function () {
+                goto(index);
+            });
+        });
+
+        //转到所在nav内容
+        function goto(n) {
+            Array.from(oNavUlLi).forEach(li=>li.className='');
+            oNavUlLi[n].className='active';
+
+            let left=oNavUlLi[n].offsetLeft-(document.documentElement.clientWidth-oNavUlLi[n].offsetWidth)/2;
+
+            if (left<0){
+                left=0;
+            } else if(left>oNavUl.offsetWidth-oNav.offsetWidth){
+                left=oNavUl.offsetWidth-oNav.offsetWidth;
+            }
+            oNavUl.style.transition='0.6s all ease';
+            oNavUl.style.transform=`translateX(${-left}px)`;
+
+            oContent.style.transition='0.6s all ease';
+            oContent.style.transfrom=`translateX(${-oContentItem[0].offsetWidth*n}px)`;
+            console.log(-oContentItem[0].offsetWidth*n);
+
+            function fnEnd() {
+                oNavUl.style.transition='none';
+                oContent.style.transition='none';
+                oNavUl.removeEventListener('transitionend',fnEnd,false);
+            }
+            oNavUl.addEventListener('transitionend',fnEnd,false);
+
+            loadDate(n);
+        }
+
+        //滑动检测
+       {
+            let hammer=new Hammer(oContent);
+
+            let start_x,start_y;
+            let translateX=0,old_translateX;
+
+            hammer.on('panstart',function (e) {
+                start_x=e.center.x;
+                start_y=e.center.y;
+                old_translateX=translateX;
+            });
+            hammer.on('panmove',function (e) {
+                translateX=e.center.x-start_x+old_translateX;
+                oContent.style.transform=`translateX(${translateX}px)`;
+            });
+            hammer.on('panend',function () {
+                if (translateX > 0) {
+                    translateX=0;
+                }
+
+                let n=Math.round(-translateX/oContentItem[0].offsetWidth);
+                //console.log(n);
+                translateX= -n*oContentItem[0].offsetWidth;
+
+                // oContent.style.transition='0.6s all ease';
+                // oContent.style.transform=`translateX(${translateX}px)`;
+
+                // function fnEnd() {
+                //     oContent.style.transition='none';
+                //     oContent.removeEventListener('transitionend',fnEnd,false);
+                // }
+                // oContent.addEventListener('transitionend',fnEnd,false);
+                goto(n);
+            });
+        }
+
+    }
+</script>
+</body>
+</html>

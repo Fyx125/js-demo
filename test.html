@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test css给文字前后添加符号</title>
+    <style type="text/css">
+        h1:before {
+            content: '第'counter(mycounter)'章.' open-quote;
+            color: #cccccc;
+        }
+        h1:after{
+            content: close-quote;
+        }
+        h1{
+            counter-increment: mycounter;
+            counter-reset: subcounter;
+            quotes: '(' ')';
+        }
+        p:before{
+            content: counter(mycounter)'-'counter(subcounter);
+        }
+        p{
+            counter-increment: subcounter;
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+<h1>大标题</h1>
+<p>示例文本</p>
+<p>示例文本</p>
+<p>示例文本</p>
+<p>示例文本</p>
+<h1>大标题</h1>
+<p>示例文本</p>
+<p>示例文本</p>
+<p>示例文本</p>
+<h1>大标题</h1>
+<p>示例文本</p>
+<h1>大标题</h1>
+<p>示例文本</p>
+</body>
+</html>

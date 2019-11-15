@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>touch事件加方向锁定</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        html{
+            font-size: 12px;
+        }
+        .box{
+            width: 10rem;
+            height: 4rem;
+            background-color: #ffffff;
+            position: relative;
+            top: -0.8rem;
+        }
+        .load{
+            height: 0.8rem;
+            line-height: 0.8rem;
+            text-align: center;
+            font-size: 0.45rem;
+        }
+        .banner{
+            width: 10rem;
+            height: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .banner ul{
+            width: 99rem;
+            height: 4rem;
+            overflow: hidden;
+            transform: translateX(0rem);
+        }
+        .banner ul li{
+            width: 10rem;
+            height: 4rem;
+            float: left;
+        }
+        .banner ul li img{
+            height: 100%;
+            width: 100%;
+        }
+        .banner ol{
+            position: absolute;
+            right: 0;
+            bottom: 0.3rem;
+        }
+        .banner ol li{
+            width: 0.3rem;
+            height: 0.3rem;
+            border: 1px solid #333333;
+            border-radius: 50%;
+            margin: 0 0.1rem;
+            background-color: #ffffff;
+            opacity: 0.6;
+            float: left;
+        }
+        .banner ol li.active{
+            background-color: #ff5501;
+            border: 1px solid #d0a793;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="load">
+        下拉刷新
+    </div>
+    <div class="box">
+        <section class="banner">
+            <ul>
+                <li><img src="../../static/images/lazyload/111.jpg" alt=""></li>
+                <li><img src="../../static/images/lazyload/222.jpg" alt=""></li>
+                <li><img src="../../static/images/lazyload/333.jpg" alt=""></li>
+                <li><img src="../../static/images/lazyload/444.jpg" alt=""></li>
+                <li><img src="../../static/images/lazyload/555.jpg" alt=""></li>
+                <li><img src="../../static/images/lazyload/666.jpg" alt=""></li>
+            </ul>
+            <ol>
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </section>
+    </div>
+<script type="text/javascript">
+    window.onresize=function () {
+        document.documentElement.style.fontSize=document.documentElement.clientWidth/10+'px';
+    };
+    window.onresize();
+
+    window.onload=function () {
+        let oBanner=document.querySelector('.banner');
+        let oBox=document.querySelector('.box');
+        let oBannerUl=document.querySelector('ul');
+        let oBannerUlLi=document.querySelectorAll('.banner ul li');
+        let oLoad=document.querySelector('.load');
+        let olLi=document.querySelectorAll('.banner ol li');
+
+        let x=0,y=0;
+        oBanner.addEventListener('touchstart',function (event) {
+            oBox.style.transition='none';
+            oBannerUl.style.transition='none';
+            let startX=event.targetTouches[0].clientX;
+            let startY=event.targetTouches[0].clientY;
+
+            let disX=startX-x;
+            let disY=startY-y;
+            
+            let dir='';
+
+            function touchMove(event) {
+                if (dir == '') {
+                    if (Math.abs(event.targetTouches[0].clientX - startX) >= 5) {
+                        dir='x';
+                    }else if(Math.abs(event.targetTouches[0].clientY-startY)>=5){
+                        dir='y';
+                    }
+                }else{
+                    if (dir == 'x') {
+                        x=event.targetTouches[0].clientX-disX;
+                    }else{
+                        y=event.targetTouches[0].clientY-disY;
+                    }
+                    oBannerUl.style.transform=`translateX(${x}px)`;
+                    if (y > 0) {
+                        oBox.style.transform=`translateY(${y/3}px)`;
+                        if (y > 200) {
+                            oLoad.innerHTML='松手';
+                        }else{
+                            oLoad.innerHTML='下拉刷新';
+                        }
+                    }else{
+                        oBox.style.transform=`translateY(${y}px)`;
+                    }
+                }
+            }
+            function touchEnd(event) {
+                oBanner.removeEventListener('touchmove',touchMove,false);
+                oBanner.removeEventListener('touchend',touchEnd,false);
+
+                if (y > 0) {
+                    y=0;
+                    oBox.style.transition='0.3s all ease';
+                    oBox.style.transform=`translateY(0px)`;
+                }
+                let n=Math.round(-x/oBannerUl.children[0].offsetWidth);
+                x=-n*oBannerUl.children[0].offsetWidth;
+
+                oBannerUl.style.transition='0.3s all ease';
+                oBannerUl.style.transform=`translateX(${x}px)`;
+
+                Array.from(olLi).forEach((li,index)=>{
+                    li.className=index==n?'active':'';
+                })
+            }
+
+            oBanner.addEventListener('touchmove',touchMove,false);
+            oBanner.addEventListener('touchend',touchEnd,false);
+        },false);
+    };
+
+</script>
+</body>
+</html>

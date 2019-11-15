@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>worker2线程嵌套</title>
+</head>
+<body>
+<div>
+    <table id="table"></table>
+</div>
+<script type="text/javascript">
+    var worker=new Worker("totalWorker.js");
+    worker.postMessage("");
+    worker.onmessage=function (event) {
+        if (event.data != "") {
+            var j,k,tr,td;
+            var intArray=event.data.split(';');
+            var table=document.getElementById('table');
+            for (var i = 0; i < intArray.length; i++) {
+                j=parseInt(i/10,0);
+                k=i%10;
+                if (k == 0) {
+                    tr=document.createElement('tr');
+                    tr.id="tr"+j;
+                    table.appendChild(tr);
+                }else{
+                    tr=document.getElementById('tr'+j);
+                }
+                td=document.createElement('td');
+                tr.appendChild(td);
+                td.innerHTML=intArray[j*10+k];
+                td.style.backgroundColor="#cccccc";
+                td.style.color="#000000";
+                td.style.width="30px";
+            }
+        }
+    };
+</script>
+</body>
+</html>

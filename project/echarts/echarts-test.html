@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>echarts简单使用</title>
+</head>
+<body>
+<div id="box" style="height: 600px;width: 800px;margin: 100px auto 0;border: 1px solid #ccc"></div>
+<script src="echarts.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.onload=function () {
+        let oBox=document.getElementById('box');
+
+        let option={
+            title:{
+                text:'xx人口比例',
+                subtext: 'xxxx年度（单位：万）'
+            },
+            series:[
+                {
+                    name:'性别比例',
+                    type:'pie',
+                    radius:'40%',
+                    center:['30%','50%'],
+                    data:[
+                        {name:'男',value:2550},
+                        {name:'女',value:2100}
+                    ]
+                },
+                {
+                    name:'年龄比例',
+                    type:'pie',
+                    radius:'40%',
+                    center:['70%','50%'],
+                    data:[
+                        {name:'18岁及以下',value:999},
+                        {name:'18-40岁',value:1899},
+                        {name:'40-60岁',value:899},
+                        {name:'60岁及以上',value:580}
+                    ]
+                }
+            ]
+        };
+        //创建  初始化图表
+        let chart=echarts.init(oBox);
+        //设置数据参数
+        chart.setOption(option);
+    }
+</script>
+</body>
+</html>

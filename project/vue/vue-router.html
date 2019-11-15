@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-router</title>
+    <script src="vue.js" type="text/javascript"></script>
+    <script src="vue-router.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.onload=function () {
+            // 配置路由----路由表
+            let router=new VueRouter({
+                routes:[
+                    {
+                        path: '/user/:id',
+                        component:{
+                            data(){
+                                return{
+                                    count: 100
+                                };
+                            },
+                            methods:{
+                              fn() {
+                                  this.count++;
+                                  console.log(this.count);
+                              }
+                            },
+                            beforeRouteLeave(to,from,next){
+                                if (confirm('如果离开本页面，数据不会保存，确定么？？')) {
+                                    next();
+                                }
+                            },
+                            template: '<div>买家:{{count}} id:{{$route.params.id}} <input type="button" value="按钮" @click="fn"></div>'
+                        },
+                        children:[           //用于子路由
+                            {
+                                path: '' ,    //路径不需要  '/ '
+                                component: {}
+                            }
+                        ]
+                    },
+                    {
+                        path: '/user2/:id',
+                        name:'u',           //有默认子路由  children
+                        component:{
+                            data(){
+                                return{
+                                    count: 100
+                                };
+                            },
+                            methods:{
+                                fn() {
+                                    this.count++;
+                                    console.log(this.count);
+                                }
+                            },
+                            beforeRouteLeave(to,from,next){
+                                if (confirm('如果离开本页面，数据不会保存，确定么？？')) {
+                                    next();
+                                }
+                            },
+                            template: '<div>买家:{{count}} id:{{$route.params.id}} <input type="button" value="按钮" @click="fn"></div>'
+                        }
+                    },
+                    {
+                        path: '/company/:id',
+                        component:{
+                            data(){
+                                return{
+                                    count: 200
+                                };
+                            },
+                            methods: {
+                                fn() {
+                                    this.count++;
+                                    console.log(this.count);
+                                }
+                            },
+                            beforeRouteLeave(to,from,next){
+                                if (confirm('如果离开本页面，数据不会保存，确定么？？')) {
+                                    next();
+                                }
+                            },
+                            template: '<div>卖家:{{count}} id:{{$route.params.id}} <input type="button" value="按钮" @click="fn"></div>'
+                        }
+                    },
+                ]
+            });
+
+            // 创建Vue对象
+            let vm=new Vue({
+                router,
+                watch:{
+                    $route(newVal,oldVal){
+                        console.log('从：',oldVal);
+                        console.log('到：',newVal);
+                    }
+                }
+            }).$mount('#div1');
+        };
+    </script>
+</head>
+<body>
+<div id="div1">
+    <router-link to="/user/111">买家平台</router-link>
+    <router-link :to="{name: 'u',params:{id:121}}">买家平台2</router-link>
+    <router-link to="/company/222">卖家平台</router-link>
+    <router-view></router-view>
+</div>
+</body>
+</html>

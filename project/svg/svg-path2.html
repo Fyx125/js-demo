@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>path圆弧</title>
+</head>
+<body>
+<svg width="800" height="600" id="drawing">
+    <path id="path"  d="" style="stroke: #000000;fill:none"></path>
+</svg>
+
+<script type="text/javascript">
+    function d2a(n){
+        return n*Math.PI/180;
+    }
+    window.onload=function () {
+        let oPath=document.getElementById('path');
+
+        let cx=400,cy=300,r=200;
+        let ang1=20,ang2=80;
+
+        let arr=[];
+        function getPoint(ang){
+            return {
+                x:cx+Math.sin(d2a(ang))*r,
+                y:cy-Math.cos(d2a(ang))*r
+            };
+        }
+        let {x:x1,y:y1}=getPoint(ang1);
+        arr.push(`M ${cx} ${cy} L ${x1} ${y1}`);
+
+        let {x:x2,y:y2}=getPoint(ang2);
+        //A rx ry x轴旋转角度 大弧标志 镜像标志 终点x 终点y
+        arr.push(`A ${r} ${r} 0 ${(ang2-ang1)>180?1:0} 1 ${x2} ${y2}`);
+
+        arr.push('Z');
+        oPath.setAttribute('d',arr.join(' '));
+    }
+</script>
+</body>
+</html>

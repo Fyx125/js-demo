@@ -1,0 +1,40 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.box{
+    height: 400px;
+    width: 400px;
+    margin: 100px 0 0 300px;
+    position: relative;
+}
+.box img{
+    display: block;
+    width: 400px;
+    height: 400px;
+}
+.box .move{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color:  rgba(0,0,0,0.3);
+    cursor: crosshair;
+    display: none;
+}
+.box .zoom{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 450px;
+    top: 0;
+    display: none;
+    overflow: hidden;
+}
+.box .zoom img{
+    position: absolute;
+    left: 0;
+    top: 0;
+}

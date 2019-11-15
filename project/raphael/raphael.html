@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>raphael画图库使用--时钟</title>
+</head>
+<body>
+
+<script type="text/javascript" src="raphael.js"></script>
+<script type="text/javascript">
+    window.onload=function () {
+        let paper=Raphael(0,0,800,600);
+        let cx=400,cy=300;
+
+        function createPath(r, ang, color) {
+            let path=paper.path();
+            path.attr({'stroke-width':20,'stroke':color});
+            calc(ang,true);
+            function calc(ang,isFirst=false) {
+                let arr=[];
+                arr.push(`M ${cx} ${cy-r}`);
+                let x=cx+Math.sin(ang*Math.PI/180)*r;
+                let y=cy-Math.cos(ang*Math.PI/180)*r;
+                arr.push(`A ${r} ${r} 0 ${ang>180?1:0} 1 ${x} ${y}`);
+                if (isFirst) {
+                    path.attr('path',arr.join(' '));
+                }else {
+                    if (ang==0){
+                        path.attr('path',arr.join(' '));
+                    }else {
+                        path.animate({path:arr.join(' ')},500,'bounce');
+                    }
+                }
+
+            }
+            path.calc=calc;
+            return path;
+        }
+
+        let paths=[];
+        function tick(){
+            let oDate=new Date();
+            if (paths.length == 0) {
+                paths=[
+                    createPath(200,360*(oDate.getHours()%12)/12,'red'),
+                    createPath(150,360*oDate.getMinutes()/60,'green'),
+                    createPath(100,360*oDate.getSeconds()/60,'yellow')
+                ];
+            }else{
+                paths[0].calc(360*(oDate.getHours()%12)/12);
+                paths[1].calc(360*oDate.getMinutes()/60);
+                paths[2].calc(360*oDate.getSeconds()/60);
+            }
+        }
+        tick();
+        setInterval(tick,1000);
+    }
+</script>
+</body>
+</html>

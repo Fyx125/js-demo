@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table-cell/input</title>
+    <style type="text/css" rel="stylesheet">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            width: 960px;
+            margin: 50px auto 0;
+            border: 1px solid #000000;
+            overflow: hidden;
+        }
+        nav {
+            display: table-cell;
+            width: 150px;
+            padding: 10px;
+            background-color: #cccccc;
+        }
+        article {
+           display: table-cell;
+            padding: 10px 20px;
+            background-color: #FF0000;
+        }
+        aside {
+            display: table-cell;
+            width: 210px;
+            padding: 10px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <nav>百度——全球最大的中文搜索引擎及最大的中文网站，全球领先的人工智能公司。2000年1月1日创立于中关村，公司创始人李彦宏拥有“超链分析”技术专利，使中国成为美国、俄罗斯、韩国之外，全球仅有的四个拥有独立搜索引擎核心技术的国家之一。基于对人工智能的多年布局与长期积累，百度在深度学习领域领先世界，并在2016年被《财富》杂志称为全球AI四巨头之一。</nav>
+    <article>百度（纳斯达克：BIDU），全球最大的中文搜索引擎及最大的中文网站，全球领先的人工智能公司。百度愿景是：成为最懂用户，并能帮助人们成长的全球顶级高科技公司。 [1]
+        “百度”二字，来自于八百年前南宋词人辛弃疾的一句词：众里寻他千百度。这句话描述了词人对理想的执着追求。1999年底，身在美国硅谷的李彦宏看到了中国互联网及中文搜索引擎服务的巨大发展潜力，抱着技术改变世界的梦想，他毅然辞掉硅谷的高薪工作，携搜索引擎专利技术，于 2000年1月1日在中关村创建了百度公司。
+        百度拥有数万名研发工程师，这是中国乃至全球最为优秀的技术团队。这支队伍掌握着世界上最为先进的搜索引擎技术，使百度成为中国掌握世界尖端科学核心技术的中国高科技企业，也使中国成为美国、俄罗斯、和韩国之外，全球仅有的4个拥有搜</article>
+    <aside>每天，百度响应来自百余个国家和地区的数十亿次搜索请求，是网民获取中文信息的最主要入口。百度以“用科技让复杂的世界更简单”为使命，不断坚持技术创新，致力于提供更懂用户的产品及服务。百度移动应用月活跃设备数超过11亿。</aside>
+</div>
+<p>
+    我在 <time datetime="2010-02-14" pubdate>情人节</time> 有个约会。
+</p>
+<div>
+    <form method="post">
+        选择颜色：<input type="color">
+        上传文件：<input type="file" multiple>
+        输入网址：<input type="url" >
+        输入邮箱：<input type="email" >
+        选择日期：<input type="date">
+        选择月份：<input type="month">
+        选择数值：<input name="range1" type="range" min="10" max="200" step="10">
+        <input type="text" required pattern="[0-9][A-Z]{3}" placeholder="输入内容：一个数字和三个大写字母">
+        <input type="submit" value="提交">
+    </form>
+
+</div>
+<div>
+    <input type="text" name="greeting" list="greetings">
+    <datalist id="greetings" style="display: none">
+        <option value="option1">option1</option>
+        <option value="option2">option2</option>
+        <option value="option3">option3</option>
+    </datalist>
+</div>
+</body>
+</html>

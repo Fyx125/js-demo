@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas-demo矩形移动</title>
+    <style type="text/css">
+        body{
+            background-color: #cccccc;
+            text-align: center;
+        }
+        #c1{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1" width="800px" height="600px"></canvas>
+
+
+<script type="text/javascript">
+    window.onload=function () {
+        let oC=document.getElementById('c1');
+        let gd=oC.getContext('2d');
+        let left=100;
+
+        requestAnimationFrame(next);
+        function next() {
+            //全擦 重画
+            gd.clearRect(0,0,oC.width,oC.height);
+            left+=5;
+            //起点坐标x y 宽 高
+            gd.strokeRect(left,100,200,150);
+            requestAnimationFrame(next);
+        }
+    }
+</script>
+</body>
+</html>

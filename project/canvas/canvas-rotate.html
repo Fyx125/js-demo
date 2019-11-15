@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas-demo矩形旋转</title>
+    <style type="text/css">
+        body{
+            background-color: #cccccc;
+            text-align: center;
+        }
+        #c1{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1" width="800px" height="600px"></canvas>
+
+
+<script type="text/javascript">
+    window.onload=function () {
+        let oC=document.getElementById('c1');
+        let gd=oC.getContext('2d');
+        let r=0;
+
+        requestAnimationFrame(next);
+        function next() {
+            //全擦 重画
+            gd.clearRect(0,0,oC.width,oC.height);
+            r++;
+            gd.save();    //保存 canvas的状态（不是图形）----颜色 translate rotate...
+            gd.translate(200,175);
+            gd.rotate(r*Math.PI/180);
+            gd.strokeRect(-100,-75,200,150);
+            gd.restore();        //恢复   恢复到上一个保存的状态
+            requestAnimationFrame(next);
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片处理--动画</title>
+    <style type="text/css">
+        body{
+            background-color: #cccccc;
+            text-align: center;
+        }
+        #c1{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="c1" width="800px" height="600px"></canvas>
+
+
+<script type="text/javascript">
+    window.onload=function () {
+        let oC = document.getElementById('c1');
+        let gd = oC.getContext('2d');
+
+        let i=0,frameCounter=0;
+        let x=100;
+        let pause=true;
+        let oImg=new Image();
+        oImg.src='timg.jpg';
+        oImg.onload=function(){
+            requestAnimationFrame(next);
+            function next(){
+                if (pause) {
+                    gd.clearRect(0,0,oC.width,oC.height);
+                    if (frameCounter % 6== 0) {
+                        i++;
+                        if (i == 4) {
+                            i=0;
+                        }
+                    }
+                    x+=1.5;
+                    gd.drawImage(oImg,
+                        i*32,96,32,48,
+                        x,100,32,48
+                    );
+                    frameCounter++;
+                }
+                requestAnimationFrame(next);
+            }
+        };
+        document.onclick=function () {
+            pause=!pause;
+        }
+    }
+</script>
+</body>
+</html>

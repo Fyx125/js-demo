@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue基础版</title>
+    <script src="vue.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        window.onload=function () {
+            let vm=new Vue({
+                el: '#div1',
+                data: {
+                    n1:0,
+                    n2:0,
+                    arr:[1,52,66,35,89,45],
+                    arr2:[
+                        {id: 1,name: 'blue',pass:'123456'},
+                        {id: 2,name: 'green',pass:'12345678'},
+                        {id: 4,name: 'red',pass:'23563'},
+                        {id: 5,name: 'white',pass:'21365'}
+                    ],
+                    str:'string'
+                },
+                methods: {
+                    fn(){
+
+                    }
+                },
+                computed: {
+                    result(){
+                        return this.n1*this.n2;
+                    }
+                },
+                watch:{
+                    n1(newVal,oldVal){
+                        console.log(`n1变了，从${oldVal}变成${newVal}`);
+                    }
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+<div id="div1">
+    <input type="text" v-model="n1">
+    <input type="text" v-model="n2">
+    <span>{{result}}</span>
+    <hr>
+    <ul>
+        <li v-for="item,index in arr">{{item}}</li>
+    </ul>
+    <ul>
+        <li v-for="json in arr2" :key="json.id">姓名：{{json.name}},密码:{{json.pass}}</li>
+    </ul>
+    <ul>
+        <li v-for="item,index in str">{{item}}</li>
+    </ul>
+<!--   v-if   删除、插入-->
+<!--   v-show 显示、隐藏-->
+<!--   v-once 仅渲染一次-->
+</div>
+</body>
+</html>

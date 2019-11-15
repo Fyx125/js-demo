@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>hammer-demo 侧滑删除</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            width: 100%;
+        }
+        ul li{
+            width: 100%;
+            position: relative;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #ccc;
+            transition: 0.6s all ease;
+            overflow: hidden;
+        }
+        ul li a.btn_del{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            text-align: center;
+            line-height: 30px;
+            background-color: #F00;
+            color: #ffffff;
+            text-decoration: none;
+            transition: 0.3s all ease;
+            overflow: hidden;
+        }
+        ul li a.btn_del span{
+            width: 80px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<ul id="list"></ul>
+
+<script src="hammer.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.onload=function () {
+        const liData=[
+            '你好啊，今天天气不错001',
+            '你好啊，今天天气不错002',
+            '你好啊，今天天气不错003',
+            '你好啊，今天天气不错004',
+            '你好啊，今天天气不错005',
+            '你好啊，今天天气不错006'
+        ];
+        let oUl=document.getElementById('list');
+        let aBtnDel=document.getElementsByClassName('btn_del');
+        liData.forEach(txt=>{
+            let oLi=document.createElement('li');
+            oLi.innerHTML=`<span>${txt}</span><a href="javascript:;" class="btn_del"><span>删除</span></a>`;
+            // console.log(oLi)
+            oUl.appendChild(oLi);
+
+            let hammer=new Hammer(oLi);
+
+            let oBtnDel=oLi.getElementsByTagName('a')[0];
+
+
+            hammer.on('swipeleft',function () {
+                Array.from(aBtnDel).forEach(btn=>{
+                    btn.style.width='0px';
+                });
+                oBtnDel.style.width='80px';
+            });
+            hammer.on('swiperight',function () {
+                oBtnDel.style.width='0px';
+            });
+
+            oBtnDel.onclick=function () {
+                oBtnDel.style.width='0px';
+                oBtnDel.addEventListener('transitionend',function (e) {
+                    oLi.style.height='0px';
+                    oLi.style.borderBottom='0px solid #ccc';
+                    e.cancelBubble=true;
+                    oLi.addEventListener('transitionend',function (e) {
+                        oUl.removeChild(oLi);
+                    },false);
+                },false);
+            }
+        });
+
+
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>echarts图形联动</title>
+</head>
+<body>
+<div id="box" style="height: 700px;width: 1000px;margin: 100px auto 0;border: 1px solid #ccc">
+    <div class="left" style="width: 50%;height: 100%;float: left;"></div>
+    <div class="right" style="width: 50%;height: 100%;float: left;"></div>
+</div>
+<script src="echarts.js" type="text/javascript"></script>
+<script type="text/javascript">
+    window.onload=function () {
+        let oBox=document.getElementById('box');
+        let oLeft=document.querySelector('.left');
+        let oRight=document.querySelector('.right');
+
+        let datas=[
+            {
+                name:'浙江',
+                value:2888,
+                citys:[
+                    {name:'杭州',value:1100},
+                    {name:'宁波',value:888},
+                    {name:'温州',value:900},
+                ]
+            },
+            {
+                name:'湖南',
+                value:1888,
+                citys:[
+                    {name:'长沙',value:888},
+                    {name:'潭州',value:400},
+                    {name:'桃园',value:600},
+                ]
+            },
+            {
+                name:'山东',
+                value:1588,
+                citys:[
+                    {name:'青岛',value:588},
+                    {name:'济南',value:600},
+                    {name:'德州',value:400},
+                ]
+            },
+            {
+                name:'福建',
+                value:3000,
+                citys:[
+                    {name:'厦门',value:1100},
+                    {name:'福州',value:1000},
+                    {name:'泉州',value:900},
+                ]
+            }
+        ];
+
+        //left --> 省份
+        let option={
+            title:{
+                text:'省份数据'
+            },
+            series:[
+                {
+                    name:'省数据',
+                    type:'pie',
+                    radius:'50%',
+                    data:datas.map(json=>({name:json.name,value:json.value}))
+                }
+            ]
+        };
+        //创建  初始化图表
+        let chartLeft=echarts.init(oLeft);
+        let chartRight=echarts.init(oRight);
+        //设置数据参数
+        chartLeft.setOption(option);
+
+        chartLeft.on('mouseover',function (ev) {
+            setCity(ev.name);
+        });
+        setCity(datas[0].name);
+        function setCity(name) {
+            let data=null;
+            datas.forEach(json=>{
+                if (json.name == name) {
+                    data=json;
+                }
+            });
+            // console.log(data);
+            let options={
+                title:{
+                    text: `${name}省数据`
+                },
+                xAxis:[
+                    {
+                        type:'category',
+                        data:data.citys.map(city=>city.name)
+                    }
+                ],
+                yAxis:[
+                    {type:'value'}
+                ],
+                series:[
+                    {
+                        name:'city',
+                        type:'bar',
+                        data:data.citys.map(city=>city.value)
+                    }
+                ]
+            };
+            chartRight.setOption(options);
+        }
+    }
+</script>
+</body>
+</html>

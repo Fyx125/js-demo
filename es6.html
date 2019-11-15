@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6测试</title>
+</head>
+<body>
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        // class Person{
+        //     constructor(name,age){
+        //         this.name=name;
+        //         this.age=age;
+        //     }
+        //     showName(){
+        //         console.log(this.name);
+        //     }
+        //     showAge(){
+        //         console.log(this.age);
+        //     }
+        // }
+        // class Worker extends Person{
+        //     constructor(name,age,job){
+        //         super(name,age);
+        //         this.job=job;
+        //     }
+        //     showJob(){
+        //         console.log(this.job);
+        //     }
+        // }
+        // let person=new Worker('aaa',18,'干活的');
+        // person.showName();
+        // person.showAge();
+        // person.showJob();
+        let promise=new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"test.txt",
+                dataType:"json",
+                success:(res) => {
+                    resolve(res);
+                },
+                error:(err)=>{
+                   reject(err);
+                }
+            });
+        });
+        let promise2=new Promise((resolve,reject)=>{
+            $.ajax({
+                url:"test1.txt",
+                dataType:"json",
+                success:(res) => {
+                    resolve(res);
+                },
+                error:(err)=>{
+                    reject(err);
+                }
+            });
+        });
+        Promise.all([promise,promise2]).then((res)=>{
+            alert("success");
+            console.log(res);
+        },(err)=>{
+            console.log(err);
+        })
+    </script>
+</body>
+</html>

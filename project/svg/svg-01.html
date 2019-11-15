@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>svg--demo1</title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+    <svg id="drawing" width="800" height="600">
+        <line x1="100" y1="100" x2="300" y2="300" style="stroke: black;stroke-width: 10" id="line"></line>
+        <rect x="300" y="300" width="100" height="100" rx="5" ry="5" style="fill: yellow"></rect>
+        <circle cx="450" cy="450" r="50"></circle>
+        <ellipse cx="50" cy="50" rx="30" ry="50"></ellipse>
+    </svg>
+
+<script type="text/javascript">
+    window.onload=function () {
+        let oDrawing=document.getElementById('drawing');
+        let oLine=document.getElementById('line');
+        oLine.onmouseover=function () {
+            this.style.stroke='red';
+        };
+        oLine.onmouseout=function () {
+            this.style.stroke='black';
+        };
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>worker</title>
+</head>
+<body>
+<div>
+    输入数值：<input type="text" id="num">
+    <button onclick="calculate()">计算</button>
+</div>
+<script type="text/javascript">
+    var worker=new Worker("SumCalculate.js");
+    worker.onmessage=function (event) {
+        console.log("sum="+event.data);
+    };
+    function calculate() {
+        var num=parseInt(document.getElementById('num').value,10);
+        worker.postMessage(num);
+    }
+</script>
+</body>
+</html>

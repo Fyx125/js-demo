@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>饼图</title>
+</head>
+<body>
+<svg width="800" height="600" id="drawing">
+<!--    <path id="path" d="" style="stroke: #000000;fill:none"></path>-->
+</svg>
+<script type="text/javascript">
+    function d2a(n){
+        return n*Math.PI/180;
+    }
+    window.onload=function () {
+        let oDrawing=document.getElementById('drawing');
+
+        let cx=400,cy=300,r=200;
+        let pData=[500,700,1300,1500,600,1100];
+        let sum=0,now=0;
+        pData.forEach(item=>sum+=item);
+        pData.forEach(item=>{
+            let ang=360*item/sum;
+            //十六进制颜色随机
+            let color=Math.floor(Math.random()*16777216).toString(16);
+            while (color.length < 6) color='0'+color;
+            //rgb颜色随机
+            // pie(now,now+ang,`rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`);
+
+            pie(now,now+ang,color);
+            now+=ang;
+        });
+
+        function pie(ang1, ang2, color) {
+            let oPath=document.createElementNS('http://www.w3.org/2000/svg','path');
+            oPath.style.stroke=''+color;
+            oPath.style.fill=''+color;
+
+            oDrawing.appendChild(oPath);
+
+            calcD(r);
+            function calcD(r){
+                function getPoint(ang) {
+                    return {
+                        x:cx+Math.sin(d2a(ang))*r,
+                        y:cy-Math.cos(d2a(ang))*r
+                    }
+                }
+
+                let arr=[];
+                let {x:x1,y:y1}=getPoint(ang1);
+                arr.push(`M ${cx} ${cy} L ${x1} ${y1}`);
+                let {x:x2,y:y2}=getPoint(ang2);
+                //A rx ry x轴旋转角度 大弧标志 镜像标志 终点x 终点y
+                arr.push(`A ${r} ${r} 0 ${(ang2-ang1)>180?1:0} 1 ${x2} ${y2}`);
+
+                //闭合
+                arr.push('Z');
+                oPath.setAttribute('d',arr.join(' '));
+            }
+
+            let fnNext=null;
+            let curR=r;
+            let size=20;
+
+            function move(end){
+                let start=curR;
+                let dis=end-start;
+                let count=0;
+                fnNext=function () {
+                    count++;
+                    let a=1-count/size;
+                    curR=start+dis*(1-a*a*a);
+                    calcD(curR);
+                    if (count >= size) {
+                        fnNext=null;
+                    }
+                };
+            }
+            oPath.onmouseover=function () {
+                move(r*1.2);
+            };
+            oPath.onmouseout=function () {
+                move(r);
+            };
+            next();
+            function next() {
+                fnNext && fnNext();
+                requestAnimationFrame(next);
+            }
+        }
+    }
+</script>
+</body>
+</html>
