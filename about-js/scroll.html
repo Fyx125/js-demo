@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动条</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0 auto;
+            padding: 0;
+        }
+        .box {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            padding: 10px;
+            background-color: #cccccc;
+            margin-top: 100px;
+            border: 1px solid #f00;
+            overflow: hidden;
+            user-select: none;
+        }
+        .content {
+            width: 300px;
+            height: 300px;
+        }
+        .scroll {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 10px;
+            background-color: #eee;
+            z-index: 100;
+        }
+        .bar {
+            height: 30px;
+            width: 100%;
+            background-color: #f00;
+            position: absolute;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="content" id="content">
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+    </div>
+    <div class="scroll" id="scroll">
+        <div class="bar" id="bar"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload=function () {
+        var box = document.querySelector('.box');
+        var content = document.querySelector('#content');
+        var scroll = document.querySelector('#scroll');
+        var bar = document.querySelector('#bar');
+
+        var barHeight = box.clientHeight / content.scrollHeight * scroll.clientHeight;
+
+    }
+</script>
+</body>
+</html>
