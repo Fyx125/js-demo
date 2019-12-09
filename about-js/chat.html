@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>微信聊天界面</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .container {
+            width: 355px;
+            height: 600px;
+            background-color: #eee;
+            border: 1px solid #000000;
+            margin: 100px auto;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .container .header {
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .container .header span:last-child {
+            float: right;
+        }
+
+        .container ul {
+            height: 500px;
+            background-color: #fff;
+        }
+
+        ul li {
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+        }
+
+        ul li img {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+        }
+
+        ul li img.left {
+            left: 5px;
+        }
+
+        ul li span.left {
+            margin-left: 50px;
+        }
+
+        ul li img.right {
+            right: 5px;
+        }
+
+        ul li span.right {
+            margin-right: 50px;
+            float: right;
+        }
+
+        footer {
+            height: 50px;
+            line-height: 50px;
+            background-color: #ccc;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        footer .icon {
+            width: 40px;
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            cursor: pointer;
+        }
+
+        footer .icon img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+        }
+
+        footer input {
+            height: 40px;
+            width: 220px;
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            font-size: 16px;
+            padding-left: 10px;
+        }
+
+        footer #btn {
+            width: 60px;
+            float: right;
+            text-align: center;
+            cursor: pointer;
+            background-color: #a6e1ec;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header"><span>机器人</span><span>8:20</span></div>
+    <ul class="content"></ul>
+    <footer>
+        <div class="icon">
+            <img src="./images/user.jpg" alt="" id="icon">
+        </div>
+        <input type="text" placeholder="说点什么吧..." id="text">
+        <span id="btn">发送</span>
+    </footer>
+</div>
+<script type="text/javascript">
+    var img = document.getElementById('icon');
+    var imgArr = ['./images/user.jpg', './images/user2.png'];
+    var imgTag = 0;
+    img.onclick = function () {
+        if (imgTag == 1) {
+            img.src = imgArr[0];
+            imgTag = 0;
+        } else {
+            img.src = imgArr[1];
+            imgTag = 1;
+        }
+    };
+    var btn = document.getElementById('btn');
+    var ulContent = document.querySelector('.content');
+    var num = -1; //统计聊天次数
+    btn.onclick = function () {
+        var text = document.getElementById('text').value;
+        if (text == '') {
+            alert('聊天内容不能为空...');
+        } else {
+            ulContent.innerHTML += `<li><img src="${img.src}" alt=""><span>${text}</span></li>`
+        }
+        var imgs = ulContent.getElementsByTagName('img');
+        var span = ulContent.getElementsByTagName('span');
+        num++;
+        //判断当前用户是哪一位
+        if (imgTag == 0) {
+            imgs[num].className = 'left';
+            span[num].className = 'left';
+        } else {
+            imgs[num].className = 'right';
+            span[num].className = 'right';
+        }
+        document.getElementById('text').value = '';
+    };
+
+</script>
+</body>
+</html>

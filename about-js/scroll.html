@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>滚动条</title>
+    <title>自定义滚动条</title>
     <style type="text/css" rel="stylesheet">
         * {
             margin: 0 auto;
@@ -12,7 +12,7 @@
             width: 300px;
             height: 300px;
             position: relative;
-            padding: 10px;
+            /*padding: 10px;*/
             background-color: #cccccc;
             margin-top: 100px;
             border: 1px solid #f00;
@@ -20,8 +20,8 @@
             user-select: none;
         }
         .content {
-            width: 300px;
-            height: 300px;
+            position: absolute;
+            top: 0;
         }
         .scroll {
             position: absolute;
@@ -37,20 +37,22 @@
             width: 100%;
             background-color: #f00;
             position: absolute;
+            top: 0;
+            left: 0;
             border-radius: 10px;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
-<div class="box">
+<div class="box" id="box">
     <div class="content" id="content">
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
-        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
-        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
-        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条1111
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条2222
+        滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条3333
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
         滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条滚动条
@@ -60,14 +62,37 @@
     </div>
 </div>
 <script type="text/javascript">
-    window.onload=function () {
-        var box = document.querySelector('.box');
+    window.onload = function () {
+        var box = document.querySelector('#box');
         var content = document.querySelector('#content');
         var scroll = document.querySelector('#scroll');
         var bar = document.querySelector('#bar');
 
-        var barHeight = box.clientHeight / content.scrollHeight * scroll.clientHeight;
+        //滚动条高度
+        var barHeight = 0;
+        if (box.clientHeight < content.scrollHeight){
+            barHeight = box.clientHeight / content.scrollHeight * scroll.clientHeight
+        }
+        bar.style.height = barHeight+'px';
 
+        bar.onmousedown = function (e) {
+            //鼠标在滚动条中的位置
+            var y = e.pageY - bar.offsetTop - box.offsetTop;
+            document.onmousemove = function (e) {
+                var barY = e.pageY - y - box.offsetTop;
+                var barMax = scroll.clientHeight - bar.clientHeight;
+                barY = barY < 0 ? 0 : barY;
+                barY = barY > barMax ? barMax : barY;
+                bar.style.top = barY + 'px';
+
+                var contentMax = content.scrollHeight - box.clientHeight;
+                var contentY = barY / barMax * contentMax;
+                content.style.top = -contentY + 'px';
+            }
+        };
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
     }
 </script>
 </body>
