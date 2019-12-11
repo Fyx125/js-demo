@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文本框验证</title>
+</head>
+<body>
+<input type="text" id="qqText"><span></span><br/>
+<input type="text"><span></span><br/>
+<script type="text/javascript">
+    /**
+     *
+     * @param elementId   元素的id
+     * @param reg    匹配的正则表达式
+     * @param tip    提示的文本
+     */
+    function addCheck(elementId, reg, tip) {
+        var element = document.getElementById(elementId);
+        element.onblur = function () {
+            var span = this.nextElementSibling;
+            if (!reg.test(this.value)) {
+                span.innerText = tip;
+                span.style.color = 'red';
+            } else {
+                span.innerText = '';
+                span.style.color = '';
+            }
+        }
+    }
+
+    //验证qq号
+    addCheck('qqText', /^\d{5,12}$/, '请输入正确的QQ号格式');
+</script>
+</body>
+</html>

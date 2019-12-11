@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>排序</title>
+    <style type="text/css" rel="stylesheet">
+        #myTable {
+            margin: 50px auto;
+            border: 1px solid #ccc;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            width: 100px;
+            height: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<table id="myTable"></table>
+<script type="text/javascript">
+    var myTable = document.getElementById('myTable');
+    var data = [
+        {name: 'zs', age: 25, num: 1, score: 96},
+        {name: 'ls', age: 23, num: 3, score: 99},
+        {name: 'ww', age: 28, num: 5, score: 98},
+        {name: 'zl', age: 20, num: 2, score: 90},
+        {name: 'qb', age: 22, num: 4, score: 92}
+    ];
+    var thead = initThead();
+    var tbody = initTbody(data);
+
+    function initThead() {
+        var thead = document.createElement('thead');
+        var tag = `<tr>
+                        <th type="name">姓名</th>
+                        <th type="age">年龄</th>
+                        <th type="num">学号</th>
+                        <th type="score">分数</th>
+                    </tr>`;
+        thead.innerHTML = tag;
+        return thead;
+    }
+
+    function initTbody(data) {
+        var tbody = document.createElement('tbody');
+        var tag = '';
+        for (var i = 0; i < data.length; i++) {
+            tag += `<tr>
+                        <td>${data[i].name}</td>
+                        <td>${data[i].age}</td>
+                        <td>${data[i].num}</td>
+                        <td>${data[i].score}</td>
+                    </tr>`
+        }
+        tbody.innerHTML = tag;
+        return tbody;
+    }
+
+    myTable.appendChild(thead);
+    myTable.appendChild(tbody);
+
+    var ths = document.getElementsByTagName('th');
+    for (var i = 0; i < ths.length; i++) {
+        ths[i].onclick = function () {
+            var sortName = this.getAttribute('type');
+            this.flag = this.flag == -1 ? 1 : -1;
+            var _this = this;
+            data.sort(function (o1, o2) {
+                var n1 = o1[sortName];
+                var n2 = o2[sortName];
+                if (n1 > n2) {
+                    return _this.flag;
+                } else if (n1 < n2) {
+                    return -_this.flag;
+                } else {
+                    return 0;
+                }
+            });
+            var newTbody = initTbody(data);
+            var oldTbody = document.getElementsByTagName('tbody')[0];
+            myTable.replaceChild(newTbody, oldTbody);
+        }
+    }
+
+</script>
+</body>
+</html>

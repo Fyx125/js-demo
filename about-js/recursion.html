@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>递归</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    //--------------------------n的阶乘-------------------------------
+    // function fn(n) {
+    //     if (n === 1) {
+    //         return 1;
+    //     }
+    //     return n * fn(n - 1);
+    // }
+    //
+    // console.log(fn(5));
+
+    //--------------------------斐波那契数列1.1.2.3.5.8.13.21.....-------------------------------
+    function fn(n) {
+        if (n === 1 || n === 2) {
+            return 1;
+        }
+        return fn(n - 1) + fn(n - 2);
+    }
+
+    console.log(fn(8));
+
+</script>
+</body>
+</html>
