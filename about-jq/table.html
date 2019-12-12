@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格添加删除数据</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .table {
+            margin: 100px auto;
+            width: 300px;
+        }
+
+        .table button {
+            height: 30px;
+            line-height: 30px;
+            width: 80px;
+            cursor: pointer;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        .mask {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(60, 60, 60, .1);
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .box {
+            position: absolute;
+            top: 300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 150px;
+            background-color: #fff;
+            z-index: 10;
+            padding: 50px 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .box input {
+            height: 30px;
+            line-height: 30px;
+            width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .box button {
+            height: 30px;
+            line-height: 30px;
+            width: 60px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        .box a {
+            text-decoration: none;
+            color: #ccc;
+            font-size: 30px;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="table">
+    <button id="addCourse">添加课程</button>
+    <table>
+        <thead>
+        <tr>
+            <td>课程</td>
+            <td>学院</td>
+            <td>学会</td>
+        </tr>
+        </thead>
+        <tbody id="myTbody">
+        <tr>
+            <td>JavaScript</td>
+            <td>前端开发学院</td>
+            <td><a href="javascript:void(0);" class="get">GET</a></td>
+        </tr>
+        <tr>
+            <td>css</td>
+            <td>前端开发学院</td>
+            <td><a href="javascript:void(0);" class="get">GET</a></td>
+        </tr>
+        <tr>
+            <td>html</td>
+            <td>前端开发学院</td>
+            <td><a href="javascript:void(0);" class="get">GET</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="mask" id="mask"></div>
+<div class="box" id="box">
+    <a href="javascript:void(0)" id="close">x</a>
+    课程名：<input type="text" id="course"><br/>
+    学院名：<input type="text" id="faculty">
+    <button id="add">添加</button>
+</div>
+
+<script type="text/javascript" src="jquery-1.12.4.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#addCourse').click(function () {
+            $('#mask').css('display', 'block');
+            $('#box').css('display', 'block');
+        });
+        $('#close').click(function () {
+            $('#mask').css('display', 'none');
+            $('#box').css('display', 'none');
+        });
+        $('#add').click(function () {
+            var course = $('#course').val();
+            var faculty = $('#faculty').val();
+            $(`<tr>
+                    <td>${course}</td>
+                    <td>${faculty}</td>
+                    <td><a href="javascript:void(0);" class="get">GET</a></td>
+               </tr>`).appendTo($('#myTbody'));
+            $('#mask').css('display', 'none');
+            $('#box').css('display', 'none');
+            $('#course').val('');
+            $('#faculty').val('');
+        });
+        $('#myTbody').on('click','.get',function () {
+            $(this).parent().parent().remove();
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星星评分</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            float: left;
+            cursor: pointer;
+        }
+
+        div {
+            margin: 100px auto;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul>
+        <li><img src="./images/star1.png" alt=""></li>
+        <li><img src="./images/star1.png" alt=""></li>
+        <li><img src="./images/star1.png" alt=""></li>
+        <li><img src="./images/star1.png" alt=""></li>
+        <li><img src="./images/star1.png" alt=""></li>
+    </ul>
+</div>
+<script type="text/javascript" src="jquery-1.12.4.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('ul>li').mouseenter(function () {
+            $(this).children().attr('src', './images/star-active.png');
+            $(this).prevAll('li').children().attr('src', './images/star-active.png');
+            $(this).nextAll('li').children().attr('src', './images/star1.png');
+        }).mouseleave(function () {
+            $('ul').find('li').children().attr('src', './images/star1.png');
+            $('ul').find('li[index=select]').children().attr('src', './images/star-active.png');
+            $('ul').find('li[index=select]').prevAll().children().attr('src', './images/star-active.png');
+        }).click(function () {
+            $(this).attr('index','select').siblings('li').removeAttr('index');
+        })
+    })
+</script>
+</body>
+</html>
