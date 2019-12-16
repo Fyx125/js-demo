@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索--智能匹配</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 400px;
+            min-height: 300px;
+            background-color: #eee;
+            margin: 100px auto;
+            text-align: center;
+            padding: 10px;
+        }
+        li {
+            list-style: none;
+            text-align: left;
+            padding-left: 95px;
+            height: 25px;
+            line-height: 25px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <input type="text" id="keyword">
+    <input type="button" value="搜索" id="search">
+    <div id="info"></div>
+</div>
+
+<script type="text/javascript" src="jquery-1.12.4.js"></script>
+<script type="text/javascript">
+
+    //https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1431,21102,30210,18559,26350&wd=java&req=2
+    // &bs=javascript%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97&csor=4&pwd=javascript%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97
+    // &cb=jQuery110205113571342982868_1576464792587&_=1576464792590
+    $(function () {
+        $('#keyword').keyup(function () {
+            var kw=$(this).val();
+            $.ajax({
+                url:'https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=pc_web&sugsid=1431,21102,30210,18559,26350&wd',
+                data:{wd:kw},
+                jsonp:'cb',
+                dataType:'jsonp',
+                success: function (data) {
+                    // console.log(data);
+                    var sug = data.g;
+                    var tag='<ul>';
+                    $.each(sug,function (index, item) {
+                        tag+='<li>'+item.q+'</li>';
+                    });
+                    tag+='</ul>';
+                    $('#info').html(tag);
+                    $('#info').find('li').hover(function () {
+                        $(this).css('backgroundColor','#fff');
+                    },function () {
+                        $(this).css('backgroundColor','#eee');
+                    })
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

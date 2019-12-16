@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js模板引擎--1</title>
+</head>
+<body>
+<div id="content"></div>
+
+<script type="text/javascript" src="template.js"></script>
+<script type="text/html" id="template">
+    <h1>{{title}}</h1>
+    {{if books}}
+    {{each books as value i}}
+    <div>{{value}}</div>
+    {{/each}}
+    {{/if}}
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        var data = {
+            title: '图书信息',
+            books: ['三国演义', '水浒传', '西游记', '红楼梦']
+        };
+        var myHtml = template('template', data);
+        document.getElementById('content').innerHTML = myHtml;
+    }
+</script>
+</body>
+</html>
