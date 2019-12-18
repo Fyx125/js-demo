@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件读取</title>
+</head>
+<body>
+<input type="file" multiple>
+<div></div>
+<script type="text/javascript">
+    //文件域上传文件
+    var file = document.querySelector('input');
+    var div = document.querySelector('div');
+    file.onchange = function () {
+        // console.log(this.files);
+        //选择我们要的文件 读取文件内容
+        var reader = new FileReader();
+        reader.readAsText(this.files[0]);
+
+        //把读取文件的内容显示在页面上
+        reader.onload = function () {
+            div.innerHTML = this.result;
+        }
+    }
+</script>
+</body>
+</html>

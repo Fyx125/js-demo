@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>地图选区demo</title>
+    <style type="text/css">
+        *{
+            margin: 0 auto;
+            padding: 0;
+        }
+        .container_title{
+            min-width: 1100px;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            border-bottom: 1px solid #dddddd;
+        }
+        .container_title ul{
+            list-style: none;
+        }
+        .container_title ul li{
+            float: left;
+            width: 12%;
+            height: 100%;
+            line-height: 60px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .container_title ul li input::-webkit-input-placeholder {
+            font-size: 12px;
+        }
+        .container_title ul li .form_inputs{
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid #e6e6e6;
+            text-indent: 0.5em;
+            border-radius: 5px;
+            outline: none;
+        }
+        .container_title ul li .form_inputs option{
+            font-size: 14px;
+            height: 30px;
+        }
+        .container_title ul li #form_search{
+            background: #3fbeff;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+        .container_title ul li #form_empty{
+            width: 35px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border: 1px solid #FF4500;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #FF4500;
+            color: #fff;
+        }
+        .list_map_box{
+            width: 100%;
+            min-width: 1100px;
+            min-height: 800px;
+            margin-top: 50px;
+            display: flex;
+            overflow: hidden;
+        }
+        .list_map_box .list_box{
+            width: 300px;
+            height: 800px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .list_map_box .list_box .seller_container{
+            width: 300px;
+            margin-top: 46px;
+            border-top: 1px solid #efefef;
+        }
+        .list_map_box .list_box .seller_container ul{
+            list-style: none;
+            margin-left: 30px;
+        }
+        .seller_container ul li {
+            height: 160px;
+            padding-right: 20px;
+            padding-top: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .seller_list .seller_active{
+            background-color: #ccc;
+        }
+        .list_map_box .map_box{
+            min-width: 800px;
+            height: 100%;
+            flex: auto;
+        }
+        .list_map_box .map_box .map_container #mapContainer{
+            height: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript" src="../static/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=jTwZezj3oYnKnIh6Zw6tWCTGplkj6AUh"></script>
+</head>
+<body>
+<!--头部搜索框-->
+<div class="container_title">
+    <from class="title_form">
+        <ul>
+            <li><span>地址：</span><input type="text" placeholder="请输入地址" class="form_inputs"></li>
+            <li><span>业务商品：</span><input type="text" placeholder="请输入产品名称" class="form_inputs"></li>
+            <li><span>供货商姓名：</span><input type="text" placeholder="请输入供货商姓名" class="form_inputs"></li>
+            <li><span>供货商电话：</span><input type="text" placeholder="请输入供货商电话" class="form_inputs"></li>
+            <li>
+                <sapn>签约状态：</sapn>
+                <select class="form_inputs" id="">
+                    <option value="0">全部</option>
+                    <option value="1">已签约</option>
+                </select>
+            </li>
+            <li>
+                <span>签约品类：</span>
+                <select class="form_inputs" id="">
+                    <option value="-1">请选择</option>
+                    <option value="0">全部</option>
+                    <option value="1">水</option>
+                    <option value="2">电</option>
+                </select>
+            </li>
+            <li>
+                <input type="button" value="查询" id="form_search" class="form_inputs">
+                <input type="button" value="清空" id="form_empty">
+            </li>
+        </ul>
+    </from>
+</div>
+<div class="list_map_box">
+    <div class="list_box">
+        <div class="seller_container">
+            <ul class="seller_list" id="seller_list">
+
+            </ul>
+        </div>
+    </div>
+    <div class="map_box">
+        <div class="map_container">
+            <div class="show_area_info"></div>
+            <div id="mapContainer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    setScroll();
+    $(window).resize(function () {
+        setScroll();
+    });
+    function setScroll() {
+        if ($(document.body).width() >= 1100) {
+            $("body").css("overflow-x", "hidden");
+        } else {
+            $("body").css("overflow-x", "scroll");
+        }
+    }
+
+    window.onload=function () {
+        // 百度地图API功能
+        var map = new BMap.Map("mapContainer");
+        var point = new BMap.Point(116.404, 39.915);  //中心点
+        map.centerAndZoom(point, 12);   //设置中心点，缩放层级
+
+        map.enableScrollWheelZoom();    //启动滚轮放大缩小
+
+        // user 姓名，phone 手机号，company 公司名称，address 地址，range 业务范围
+
+        var data=[
+            {id:1,name:111,lng:116.405,lat:39.906,user:'宋官城1',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:2,name:222,lng:116.405,lat:39.916,user:'宋官城2',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:3,name:333,lng:116.425,lat:39.907,user:'宋官城3',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:4,name:444,lng:116.415,lat:39.926,user:'宋官城4',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:5,name:555,lng:116.405,lat:39.908,user:'宋官城5',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:6,name:666,lng:116.411,lat:39.906,user:'宋官城6',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:7,name:777,lng:116.487,lat:39.936,user:'宋官城7',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:8,name:888,lng:116.489,lat:39.926,user:'宋官城8',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:9,name:999,lng:116.459,lat:39.936,user:'宋官城9',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'},
+            {id:10,name:1000,lng:116.469,lat:39.916,user:'宋官城10',phone:13121213123,company:'上海市闵行区已和建材经商部',address:'上海市xxx区xx路xx号',range:'水泥黄沙'}
+        ];
+        // 海量点
+        if (document.createElement('canvas').getContext) {  // 判断当前浏览器是否支持绘制海量点
+            var points = [];  // 添加海量点数据
+            for (var i = 0; i < data.length; i++) {
+                points.push(new BMap.Point(data[i].lng, data[i].lat));
+            }
+            var options = {
+                color: '#d340c3'
+            };
+            var pointCollection = new BMap.PointCollection(points, options);  // 初始化PointCollection
+
+            pointCollection.addEventListener('click', function (e) {
+                //console.log(e,this);
+                map.removeOverlay(map.marker);
+                var point=new BMap.Point(e.point.lng,e.point.lat);
+                map.marker=new BMap.Marker(point);
+                map.addOverlay(map.marker);
+                map.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+                data.forEach((item,index)=>{
+                    if (item.lng == e.point.lng && item.lat == e.point.lat) {
+                        var liIndex=item.id;
+                        var obj=$('.seller');
+                        for (var i = 0; i < obj.length; i++) {
+                            if (obj[i].attributes.index.value==liIndex){
+                                $(obj[i]).addClass('seller_active').siblings().removeClass('seller_active');
+                            }
+                        }
+                    }
+                })
+            });
+            map.addOverlay(pointCollection);  // 添加Overlay
+            pointCollection.disableMassClear();   //pointCollection不被清除
+        } else {
+            alert('请在chrome、safari、IE8+以上浏览器查看本示例');
+        }
+
+        //鼠标点击显示覆盖物--圆
+        function circleEvent(event){
+            // console.log(event);
+            var x = event.point.lng;
+            var y = event.point.lat;
+            var circle = new BMap.Circle(new BMap.Point(x, y));
+            var dot = new BMap.Point(new BMap.Point(x, y).lng, new BMap.Point(x, y).lat);
+            circle.setStrokeWeight(2);
+            circle.setRadius(3000);
+            circle.setFillColor('purple');
+            circle.setFillOpacity(0.2);
+            map.clearOverlays(circle);
+            map.addOverlay(circle);
+
+            circle.addEventListener('mouseover', function () {
+                map.removeEventListener('click', circleEvent);
+            });
+            circle.addEventListener('mouseout', function () {
+                map.addEventListener('click', circleEvent);
+            });
+            circle.addEventListener("click", getAttr(), true);
+
+            //获取选中区域内的海量点信息
+            function getAttr(e) {
+                var arry = [];
+                for (var i = 0; i < data.length; i++) {
+                    var temp = new BMap.Point(data[i].lng, data[i].lat);
+                    if (map.getDistance(temp, dot) < 3000) {
+                        arry.push(data[i])
+                    }
+                }
+                var ulList=$('#seller_list');
+                ulList.empty();
+
+                if (arry.length > 0) {
+                    var frag=document.createDocumentFragment();
+                    for (var i = 0; i < arry.length; i++) {
+                        // user 姓名，phone 手机号，company 公司名称，address 地址，range 业务范围
+                        var item=arry[i];
+                        var str=`<li class="seller" index="${item.id}">
+                                    <div class="user">联系人：${item.user}</div>
+                                    <div class="phone">电话：${item.phone}</div>
+                                    <div class="company">公司名称：${item.company}</div>
+                                    <div class="range">业务范围：${item.range}</div>
+                                    <div class="address">地址：${item.address}</div>
+                                </li>`;
+                        $(str).appendTo(frag);
+                    }
+                    ulList.append(frag);
+                }
+            }
+        }
+        map.addEventListener("click", circleEvent);
+
+        //左侧列表点击
+        $('ul').on('click','.seller',function () {
+            var obj=$(this);
+            var objIndex=obj.attr('index');
+            obj.addClass('seller_active').siblings().removeClass('seller_active');
+
+            data.forEach((item,index)=>{
+                if (item.id == objIndex) {
+                    map.removeOverlay(map.marker);
+                    var point=new BMap.Point(item.lng,item.lat);
+                    map.marker=new BMap.Marker(point);
+                    map.addOverlay(map.marker);
+                    map.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                }
+            })
+        });
+
+        var address=[
+            {name:'北京市海淀区',color:'rgba(135,206,235,0.3)'},
+            {name:'北京市丰台区',color:'rgba(100,149,237,0.3)'},
+            {name:'北京市通州区',color:'rgba(238,130,238,0.3)'},
+            {name:'北京市顺义区',color:'rgba(138,43,226,0.3)'},
+            {name:'北京市房山区',color:'rgba(72,209,204,0.3)'},
+            {name:'北京市大兴区',color:'rgba(127,255,170,0.3)'},
+            {name:'北京市门头沟区',color:'rgba(173,255,47,0.3)'},
+            {name:'北京市密云区',color:'rgba(255,255,224,0.3)'},
+            {name:'北京市平谷区',color:'rgba(255,215,0,0.3)'},
+            {name:'北京市昌平区',color:'rgba(244,164,96,0.3)'},
+            {name:'北京市东城区',color:'rgba(250,128,114,0.3)'},
+            {name:'北京市石景山区',color:'rgba(169,169,169,0.3)'},
+            {name:'北京市朝阳区',color:'rgba(210,180,140,0.3)'},
+            {name:'北京市西城区',color:'rgba(34,139,34,0.3)'}
+        ];
+
+        //绘画地图颜色板块
+        function getBoundary(address){
+            var bdary = new BMap.Boundary();
+            bdary.get(address.name, function(rs){       //获取行政区域
+                map.clearOverlays();        //清除地图覆盖物
+                var count = rs.boundaries.length; //行政区域的点有多少个
+                if (count === 0) {
+                    alert('未能获取当前输入行政区域');
+                    return ;
+                }
+                var pointArray = [];
+                for (var i = 0; i < count; i++) {
+                    var ply = new BMap.Polygon(rs.boundaries[i], {strokeWeight: 2, strokeColor: "#dddddd",fillColor:address.color}); //建立多边形覆盖物
+                    map.addOverlay(ply);  //添加覆盖物
+                    ply.disableMassClear();   //ply不被清除
+                    pointArray = pointArray.concat(ply.getPath());
+                }
+            });
+        }
+        for (var i = 0; i < address.length; i++) {
+            getBoundary(address[i]);
+        }
+
+
+    }
+</script>
+</body>
+</html>

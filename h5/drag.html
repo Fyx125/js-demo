@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style type="text/css" rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccccc;
+            margin-left: 50px;
+            float: left;
+        }
+
+        p {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+<!--<div id="div1">-->
+<!--    <p draggable="true" id="p1">111</p>-->
+<!--    <p draggable="true" id="p2">222</p>-->
+<!--    <p draggable="true" id="p3">333</p>-->
+<!--</div>-->
+<!--<div id="div2"></div>-->
+<!--<div id="div3"></div>-->
+
+<!--可用版本-->
+<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <p draggable="true" id="p1" ondragstart="drag(event)">111</p>
+    <p draggable="true" id="p2" ondragstart="drag(event)">222</p>
+    <p draggable="true" id="p3" ondragstart="drag(event)">333</p>
+</div>
+<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<div id="div3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+</body>
+<script type="text/javascript">
+    // document.ondrag = function (event) {
+    //     console.log(event.target.id);
+    //     event.dataTransfer.setData("text",event.target.id);
+    // };
+    // document.ondragover = function (event) {
+    //     event.preventDefault();
+    // };
+    // document.ondrop = function (event) {
+    //     event.preventDefault();
+    //     console.log(event);
+    //     var id=event.dataTransfer.getData("text");
+    //     console.log(id);
+    //     event.target.appendChild(document.getElementById(id));
+    // };
+
+
+    //可用版本
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+</html>

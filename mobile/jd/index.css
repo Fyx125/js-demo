@@ -1,0 +1,205 @@
+/*搜索块*/
+.jd_layout {
+    width: 100%;
+    max-width: 640px;
+    min-width: 320px;
+    margin: 0 auto;
+    background-color: #eeeeee;
+    position: relative;
+}
+
+.jd_search {
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    background-color: #f00;
+    max-width: 640px;
+    z-index: 999;
+}
+
+.jd_logo {
+    width: 56px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    background: url("./images/logo.png") center no-repeat;
+    background-size: 20px 16px;
+}
+
+.jd_searchBox {
+    width: 100%;
+    height: 100%;
+    padding-left: 56px;
+    padding-right: 50px;
+}
+
+.jd_searchBox > input {
+    width: 100%;
+    height: 30px;
+    margin-top: 5px;
+    padding-left: 30px;
+    border-radius: 15px;
+    color: #666;
+}
+
+.jd_searchBox::before {
+    content: '';
+    width: 27px;
+    height: 23px;
+    background: url("./images/search.png") center no-repeat;
+    background-size: 16px;
+    position: absolute;
+    top: 9px;
+    left: 60px;
+}
+
+.jd_login {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #fff;
+}
+
+/*轮播图*/
+.jd_banner {
+    width: 100%;
+    position: relative;
+    padding-top: 40px;
+    overflow: hidden;
+}
+
+.jd_bannerImg {
+    width: 500%;
+    position: relative;
+}
+
+.jd_bannerImg > li {
+    width: 20%;
+    float: left;
+}
+
+.jd_bannerImg > li img {
+    width: 100%;
+    display: block;
+}
+
+.jd_bannerIndex {
+    width: 90px;
+    height: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10px;
+}
+
+.jd_bannerIndex > li {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    float: left;
+    margin-right: 10px;
+}
+
+.jd_bannerIndex > li:last-child {
+    margin-right: 0;
+}
+
+.jd_bannerIndex > li.active {
+    background-color: #fff;
+}
+
+/*导航块*/
+.jd_nav {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #fff;
+}
+
+.jd_nav li {
+    width: 25%;
+    float: left;
+    margin-top: 5px;
+}
+
+.jd_nav li img {
+    width: 50px;
+}
+
+.jd_nav li p {
+    line-height: 25px;
+}
+
+/*产品块*/
+.jd_product {
+    width: 100%;
+}
+
+.jd_productBox {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.jd_productBox > .jd_pTip {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+}
+
+.jd_left, .jd_left > div, .jd_left > span {
+    float: left;
+}
+
+.jd_sk_icon {
+    width: 70px;
+    height: 30px;
+    background: url("./uploads/miaosha.png") center no-repeat;
+    background-size: 70px;
+}
+
+.jd_sk_text {
+    margin: 0 10px;
+    font-weight: 700;
+}
+
+.jd_right {
+    float: right;
+    margin-right: 10px;
+    color: #f23030;
+}
+
+.jd_pContent {
+    padding: 20px;
+    text-align: center;
+}
+
+.jd_pContent > ul {
+    width: 100%;
+}
+
+.jd_pContent > ul li {
+    width: 33.3%;
+    float: left;
+}
+
+.jd_pContent > ul li img {
+    width: 60%;
+}
+
+.sk_price {
+    color: #f23030;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.old_price {
+    text-decoration: line-through;
+    color: #666;
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>qq浏览器</title>
+    <link rel="stylesheet" href="dist/fullpage.min.css">
+    <style type="text/css" rel="stylesheet">
+        /*背景圆*/
+        .bg {
+            width: 1000px;
+            height: 1000px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 2s;
+        }
+
+        .rotate {
+            transform: translate(-50%, -50%) rotateZ(-60deg);
+        }
+        .row1 .cir1, .row1 .cir2, .row1 .cir3 {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            top: 50%;
+            left: 50%;
+            margin-top: -280px;
+            margin-left: -30px;
+        }
+
+        .row1 .cir2 {
+            margin-top: -280px;
+            margin-left: 500px;
+        }
+
+        .row1 .cir3 {
+            margin-top: -380px;
+            margin-left: 100px;
+        }
+
+        .row1 div, .row2 div, .row3 div {
+            background: -webkit-linear-gradient(top, #fff, #dedede, #eee, #dedede);
+            border-radius: 50%;
+        }
+
+        .row2 .cir1, .row2 .cir2, .row2 .cir3 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            margin-top: -200px;
+            margin-left: -300px;
+        }
+
+        .row2 .cir2 {
+            margin-top: -200px;
+            margin-left: 500px;
+        }
+
+        .row2 .cir3 {
+            margin-top: -180px;
+            margin-left: 200px;
+        }
+
+        .row3 .cir1, .row3 .cir2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            top: 50%;
+            left: 50%;
+            margin-top: 30px;
+            margin-left: 500px;
+        }
+
+        .row3 .cir2 {
+            margin-top: 30px;
+            margin-left: -500px;
+        }
+
+        /*第一屏*/
+        .section1 {
+            perspective: 1000px;
+        }
+
+        /*结束状态*/
+        .comein .p1 {
+            transform: translate(-50%, -50%) translateZ(0px) rotateY(0deg);
+        }
+
+        /*起始状态*/
+        .p1 {
+            width: 880px;
+            height: 320px;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(500px) rotateY(-180deg);
+            transition: all 1s;
+        }
+
+        /*第二屏*/
+        .section2 {
+            perspective: 1000px;
+        }
+        .p2 {
+            width: 316px;
+            height: 360px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) translateZ(-4000px) scale(0.1);
+            transition: all 2s;
+        }
+        .p2 img {
+            width: 100%;
+            height: 100%;
+        }
+        /*动画组*/
+        .row1 div {
+            animation: cirmove 100s linear infinite;
+        }
+
+        .row2 div {
+            animation: cirmove 40s linear infinite;
+        }
+
+        .row3 div {
+            animation: cirmove 80s linear infinite;
+        }
+
+        @keyframes cirmove {
+            from {
+                transform: translateX(0px) rotate(0deg);
+            }
+            to {
+                transform: translateX(-2000px) rotate(-3600deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg" id="bg">
+    <div class="row1">
+        <div class="cir1"></div>
+        <div class="cir2"></div>
+        <div class="cir3"></div>
+    </div>
+    <div class="row2">
+        <div class="cir1"></div>
+        <div class="cir2"></div>
+        <div class="cir3"></div>
+    </div>
+    <div class="row3">
+        <div class="cir1"></div>
+        <div class="cir2"></div>
+    </div>
+</div>
+<div id="fullpage">
+    <div class="section section1">
+        <div class="p1">
+            <img src="skinmain.gif" alt="">
+        </div>
+    </div>
+    <div class="section section2">
+        <div class="p2">
+            <img src="p2.jpg" alt="">
+        </div>
+    </div>
+    <div class="section">Some section</div>
+    <div class="section">Some section</div>
+</div>
+
+<script type="text/javascript" src="jquery-1.12.4.js"></script>
+<script type="text/javascript" src="dist/fullpage.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            $('.section1').addClass('comein');
+        }, 200);
+        $('#fullpage').fullpage({
+            navigation: true,
+            loopBottom: true,
+            onLeave: function (origin, destination, direction) {
+                if (destination.index !== 0) {
+                    $('#bg').addClass('rotate');
+                    $('.section1').removeClass('comein');
+                }else {
+                    $('#bg').removeClass('rotate');
+                    $('.section1').addClass('comein');
+                }
+                if (destination.index == 1) {
+                    $('.p2').css('transform','translate(-50%,-50%) translateZ(0px) scale(1)');
+                }else {
+                    $('.p2').css('transform','translate(-50%,-50%) translateZ(2000px) scale(1)');
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
