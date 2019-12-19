@@ -1,0 +1,110 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 16px;
+    list-style: none;
+    font-family: 微软雅黑;
+}
+.container{
+    text-align: center;
+}
+.product{
+    width: 100%;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+.product div{
+    width: 1000px;
+}
+.product div p{
+    font-size: 46px;
+    color: #e3e3e3;
+    font-weight: bold;
+}
+.product div h3{
+    background: url("../images/title_bg.png") no-repeat center bottom;
+    font-size: 26px;
+    color: #000000;
+    font-weight: 400;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+.product div .title{
+    margin:0 auto 30px;
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+.product div .title li{
+    float: left;
+    width: 10%;
+    height: 45px;
+    line-height: 45px;
+    margin: 0.555%;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+}
+.product div .title li img{
+    display: none;
+    position: absolute;
+    bottom: -8px;
+    left: 42px;
+}
+.product div .title li.active,.product div .title li:hover{
+    background-color: #DD111C;
+    color: #ffffff;
+}
+.product div .title li.active img,.product div .title li:hover img{
+    display: block;
+}
+.product div .content{
+    height: 580px;
+    overflow: hidden;
+    position: relative;
+}
+.product div .content .list{
+    display: none;
+    height: 580px;
+}
+.product div .content .content-active{
+    display: block;
+}
+.product div .content .list .left_img{
+    height: 580px;
+    width: 504px;
+    display: block;
+    float: left;
+}
+.product div .content .list .box{
+    width: 494px;
+    height: 580px;
+    overflow: hidden;
+    float: right;
+    border: 1px solid #dddddd;
+}
+.product div .content .list .box li{
+    width: 246px;
+    height: 288px;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+.product div .content .list .box li img{
+    display: block;
+    margin-bottom: 20px;
+    /*border-bottom: 1px solid #dddddd;*/
+    width: 246px;
+    height: 227px;
+}
+.product div .content .list .box li span{
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 15px;
+    color: #757678;
+}

@@ -57,12 +57,21 @@ function bannerEffect() {
         imgBox.style.left = -index * bannerWidth + 'px';
     };
 
+    //实现点标记
+    var setIndex = function (index) {
+        var bannerIndexs = banner.querySelector('ul:last-of-type').querySelectorAll('li');
+        for (var i = 0; i < bannerIndexs.length; i++) {
+            bannerIndexs[i].classList.remove('active');
+        }
+        bannerIndexs[index-1].classList.add('active');
+    };
+
     //自动轮播
     var timeId;
     var startTime = function () {
         timeId = setInterval(function () {
             index++;
-            imgBox.style.transition = 'left 0.5s ease-in-out';
+            imgBox.style.transition = 'left 0.3s ease-in-out';
             imgBox.style.left = (-index * bannerWidth) + 'px';
             setTimeout(function () {
                 if (index == count - 1) {
@@ -77,22 +86,27 @@ function bannerEffect() {
 
     //手动轮播
     var startX, moveX, distanceX;
+    var isEnd = true; //标记过渡效果是否完成
     // 触摸事件开始
     imgBox.addEventListener('touchstart', function (e) {
         startX = e.targetTouches[0].clientX;
         clearInterval(timeId);
         imgBox.style.transition = 'none';
-        console.log(startX);
+        // console.log(startX);
     });
     //滑动过程
     imgBox.addEventListener('touchmove', function (e) {
-        moveX = e.targetTouches[0].clientX;
-        distanceX = moveX - startX;
-        imgBox.style.left = distanceX - bannerWidth * index + 'px';
+        if (isEnd == true) {
+            moveX = e.targetTouches[0].clientX;
+            distanceX = moveX - startX;
+            imgBox.style.transition = 'none';
+            imgBox.style.left = distanceX - bannerWidth * index + 'px';
+        }
     });
     //滑动结束
     imgBox.addEventListener('touchend', function (e) {
-        //判断滑动距离是否超过图片一半的大小
+        isEnd = false;
+        //判断滑动距离是否超过图片1/3的大小
         if (Math.abs(distanceX) > bannerWidth / 3) {
             //判断滑动的方向
             if (distanceX > 0) {
@@ -100,15 +114,17 @@ function bannerEffect() {
             } else {
                 index++;
             }
-            imgBox.style.transition = 'left 0.5s ease-in-out';
+            imgBox.style.transition = 'left 0.3s ease-in-out';
             imgBox.style.left = (-index * bannerWidth) + 'px';
         } else if (Math.abs(distanceX) > 0) {
             //回弹
-            imgBox.style.transition = 'left 0.5s ease-in-out';
+            imgBox.style.transition = 'left 0.3s ease-in-out';
             imgBox.style.left = (-index * bannerWidth) + 'px';
         }
-        //重新开启定时器
-        startTime();
+        //将上一次滑动后的数据归0
+        startX = 0;
+        moveX = 0;
+        distanceX = 0;
     });
 
     //过度效果执行完毕 执行
@@ -124,5 +140,14 @@ function bannerEffect() {
             imgBox.style.transition = 'none';
             imgBox.style.left = (-index * bannerWidth) + 'px';
         }
+        //设置点标记
+        setIndex(index);
+        //滑动一次后不能马上滑动
+        setTimeout(function () {
+            isEnd = true;
+            clearInterval(timeId);
+            //重新开启定时器
+            startTime();
+        },500);
     })
 }

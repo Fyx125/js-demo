@@ -1,0 +1,136 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.ct_layout {
+    width: 100%;
+    height: 100%;
+}
+
+/*头部搜索框*/
+.ct_header {
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    position: absolute;
+}
+
+.ct_back, .ct_menu {
+    width: 49px;
+    height: 49px;
+    position: absolute;
+    top: 0;
+}
+
+.ct_back {
+    background: url("./images/left.png") center no-repeat;
+    background-size: 20px;
+}
+
+.ct_menu {
+    right: 0;
+    background: url("./images/menu2.png") center no-repeat;
+    background-size: 20px;
+}
+
+.ct_search {
+    width: 100%;
+    height: 100%;
+    padding: 0 60px;
+}
+
+.ct_search > input {
+    width: 100%;
+    height: 40px;
+    margin-top: 4px;
+    color: #666;
+    font-size: 16px;
+    border-radius: 20px;
+    padding-left: 15px;
+    background-color: #eee;
+}
+
+/*分类主体内容*/
+.ct_content {
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+}
+
+.ct_cLeft {
+    width: 100px;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    background-color: #eee;
+    position: relative;
+}
+
+.ct_cLeft > ul {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ct_cLeft li {
+    height: 50px;
+    width: 100%;
+}
+
+.ct_cLeft li > a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: #eee;
+    color: #333;
+    line-height: 50px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.ct_cLeft li.active > a {
+    background-color: #fff;
+    color: #e92322;
+    border-bottom: none;
+    border-right: none;
+}
+
+.ct_cRight {
+    height: 100%;
+    margin-left: 100px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ct_cRight > h3 {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.ct_hotCategory {
+    width: 100%;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.ct_hotCategory > ul {
+    overflow: hidden;
+}
+
+.ct_hotCategory li {
+    width: 33.33%;
+    text-align: center;
+    float: left;
+}
+
+.ct_hotCategory li img {
+    width: 60px;
+}

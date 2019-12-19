@@ -1,0 +1,207 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 16px;
+    list-style: none;
+    font-family: 微软雅黑;
+}
+.container{
+    text-align: center;
+}
+.banner{
+    width: 100%;
+    height: 580px;
+    background-color: aliceblue;
+}
+.banner .swiper-container{
+    height: 580px;
+    width: 100%;
+}
+.banner img{
+    height: 100%;
+    width: 100%;
+}
+.banner .swiper-pagination-custom{
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin: 0 5px 10px;
+    background-color: #cccccc;
+    cursor: pointer;
+}
+.banner .swiper-pagination-custom-active{
+    background-color: #DD111C;
+}
+
+.product{
+    width: 100%;
+    margin-top: 35px;
+}
+.product div{
+    width: 1000px;
+}
+.product div p{
+    font-size: 46px;
+    color: #e3e3e3;
+    font-weight: bold;
+}
+.product div h3{
+    background: url("../images/title_bg.png") no-repeat center bottom;
+    font-size: 26px;
+    color: #000000;
+    font-weight: 400;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+}
+.product div .title{
+    margin:0 auto 30px;
+    overflow: hidden;
+    padding-bottom: 8px;
+}
+.product div .title li{
+    float: left;
+    width: 10%;
+    height: 45px;
+    line-height: 45px;
+    margin: 0.555%;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+}
+.product div .title li img{
+    display: none;
+    position: absolute;
+    bottom: -8px;
+    left: 42px;
+}
+.product div .title li.active,.product div .title li:hover{
+    background-color: #DD111C;
+    color: #ffffff;
+}
+.product div .title li.active img,.product div .title li:hover img{
+    display: block;
+}
+.product div .content{
+    height: 580px;
+    overflow: hidden;
+    position: relative;
+}
+.product div .content .list{
+    display: none;
+    height: 580px;
+}
+.product div .content .content-active{
+    display: block;
+}
+.product div .content .list .left_img{
+    height: 580px;
+    width: 504px;
+    display: block;
+    float: left;
+}
+.product div .content .list .box{
+    width: 494px;
+    height: 580px;
+    overflow: hidden;
+    float: right;
+    border: 1px solid #dddddd;
+}
+.product div .content .list .box li{
+    width: 246px;
+    height: 288px;
+    position: relative;
+    overflow: hidden;
+    float: left;
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+}
+.product div .content .list .box li img{
+    display: block;
+    margin-bottom: 20px;
+    /*border-bottom: 1px solid #dddddd;*/
+    width: 246px;
+    height: 227px;
+}
+.product div .content .list .box li span{
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 15px;
+    color: #757678;
+}
+
+.advantage{
+    width: 100%;
+    height: 700px;
+    background: url("../images/advantage.jpg") no-repeat center top;
+    overflow: hidden;
+    margin-top: 50px;
+}
+.advantage .box{
+    width: 1000px;
+    padding-top: 240px;
+    overflow: hidden;
+}
+.advantage .box ul{
+    position: relative;
+    height: 440px;
+}
+.advantage .box ul li{
+    position: absolute;
+    text-align: left;
+}
+.advantage .box ul .li1{
+    left: 18px;
+    top: 0;
+}
+.advantage .box ul .li2{
+    left: 660px;
+    top: 0;
+}
+.advantage .box ul .li3{
+    left: 18px;
+    top: 225px;
+}
+.advantage .box ul .li4{
+    left: 660px;
+    top: 225px;
+}
+.advantage .box ul li h3 {
+    margin-bottom: 20px;
+}
+
+.advantage .box ul li h3 .num{
+    display: inline-block;
+    width: 44px;
+    height: 32px;
+    background-color: #DD111C;
+    color: #ffffff;
+    line-height: 32px;
+    font-size: 20px;
+    font-weight: 700;
+    position: relative;
+    text-align: center;
+}
+.advantage .box ul li h3 .num img{
+    position: absolute;
+    right: -16px;
+}
+.advantage .box ul li h3 .text{
+    margin-left: 20px;
+    color: #DD111C;
+    font-size: 20px;
+    font-weight: 700;
+}
+.advantage .box ul li p{
+    background: url("../images/dian.png") no-repeat left 6px;
+    font-size: 14px;
+    color: #757678;
+    line-height: 24px;
+    padding-left: 16px;
+}
+
+

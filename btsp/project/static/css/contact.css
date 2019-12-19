@@ -1,0 +1,92 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    font-size: 16px;
+    list-style: none;
+    font-family: 微软雅黑;
+}
+.container{
+    text-align: center;
+}
+.contact{
+    width: 100%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+.contact .content{
+    width: 1000px;
+}
+.contact .content .box{
+    width: 50%;
+    height: 500px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    float: left;
+}
+.contact .content .box form{
+    margin-top: 50px;
+    margin-left: 50px;
+}
+.contact .content .box form div{
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+    text-align: left;
+    height: 34px;
+    width: 400px;
+}
+.contact .content .box form div span{
+    height: 34px;
+    width: 40px;
+    display: block;
+    float: left;
+    border-right: 1px solid #dddddd;
+}
+.contact .content .box form div span img{
+    height: 34px;
+    width: 40px;
+}
+.contact .content form input{
+    border: none;
+    outline: none;
+    height: 34px;
+    width: 348px;
+    line-height: 34px;
+    padding-left: 10px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #767676;
+}
+.contact .content .box .textarea,.contact .content .box .textarea span{
+    height: 110px;
+}
+.contact .content form textarea{
+    overflow: hidden;
+    width: 348px;
+    height: 100px;
+    resize: none;
+    font-size: 14px;
+    color: #767676;
+    border: none;
+    outline: none;
+    padding: 10px 0 0 10px;
+}
+.contact .content .box .buttons{
+    border: none;
+    text-align: center;
+    margin-top: 20px;
+}
+.contact .content .box .buttons input{
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.contact .content .box .buttons .submit{
+    color: #ffffff;
+    background-color: #fd581f;
+}
+.clear{
+    clear: both;
+}
