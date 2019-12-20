@@ -1,0 +1,56 @@
+/*公共样式*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input, textarea, div {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;;
+    font-size: 14px;
+    color: #333;
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+input, button {
+    outline: none;
+}
+
+.clearfix::before, .clearfix::after {
+    content: '';
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/*自定义字体*/
+/*@font-face {*/
+/*    font-family: 'wjs';*/
+/*    src: url('../../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.eot');*/
+/*    src: url('../../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff') format('woff'),*/
+/*    url('../../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'),*/
+/*    url('../../bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.svg') format('svg');*/
+/*}*/

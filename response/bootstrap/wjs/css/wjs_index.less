@@ -1,0 +1,47 @@
+//定义变量
+@baseColor: #e92322;
+
+/*头部块样式*/
+.wjs_header {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #ccc;
+
+  .row {
+    height: 100%;
+
+    > div:nth-of-type(-n+3) {
+      border-right: 1px solid #ccc;
+
+      > .wjs_code {
+        position: relative;
+        img {
+          width: 100px;
+          display: none;
+          position: absolute;
+          top: 35px;
+          left: 0;
+        }
+        &:hover {
+          img {
+            display: block;
+          }
+        }
+      }
+    }
+    >div:nth-last-of-type(1){
+      >.btn-danger{
+        background-color: @baseColor;
+      }
+      > .btn {
+        padding: 3px 15px;
+      }
+      > .btn-link {
+        color: #333;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

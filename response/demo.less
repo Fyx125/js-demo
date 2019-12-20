@@ -1,0 +1,57 @@
+
+
+/*这种注释方式会编译*/
+//这种不会
+
+//定义变量
+@color3: #333;
+@color6: #666;
+div {
+  color: @color3;
+}
+
+//定义函数（参数）  -->混入
+.addRadius(@r:10px) {
+  border-radius: @r;
+  -webkit-border-radius: @r;
+  -moz-border-radius: @r;
+}
+
+div {
+  width: 100px;
+  height: 100px;
+  //调用函数  传入参数
+  .addRadius(5px);
+}
+
+//嵌套(样式)  实现选择器继承
+
+.color {
+  div {
+    color: @color3;
+
+    .box {
+      &::before {
+        content: '';
+      }
+
+      width: 100px;
+      height: 100px;
+      .addRadius(8px);
+
+      > a {
+        text-decoration: none;
+        color: @color3;
+
+        &:hover {
+          color: @color6;
+        }
+      }
+    }
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+}
+

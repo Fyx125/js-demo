@@ -1,0 +1,38 @@
+/*头部块样式*/
+.wjs_header {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #ccc;
+}
+.wjs_header .row {
+  height: 100%;
+}
+.wjs_header .row > div:nth-of-type(-n+3) {
+  border-right: 1px solid #ccc;
+}
+.wjs_header .row > div:nth-of-type(-n+3) > .wjs_code {
+  position: relative;
+}
+.wjs_header .row > div:nth-of-type(-n+3) > .wjs_code img {
+  width: 100px;
+  display: none;
+  position: absolute;
+  top: 35px;
+  left: 0;
+}
+.wjs_header .row > div:nth-of-type(-n+3) > .wjs_code:hover img {
+  display: block;
+}
+.wjs_header .row > div:nth-last-of-type(1) > .btn-danger {
+  background-color: #e92322;
+}
+.wjs_header .row > div:nth-last-of-type(1) > .btn {
+  padding: 3px 15px;
+}
+.wjs_header .row > div:nth-last-of-type(1) > .btn-link {
+  color: #333;
+}
+.wjs_header .row > div:nth-last-of-type(1) > .btn-link:hover {
+  text-decoration: none;
+}
+/*# sourceMappingURL=wjs_index.css.map */
