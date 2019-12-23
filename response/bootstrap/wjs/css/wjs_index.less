@@ -15,13 +15,16 @@
 
       > .wjs_code {
         position: relative;
+
         img {
           width: 100px;
           display: none;
           position: absolute;
           top: 35px;
           left: 0;
+          z-index: 10;
         }
+
         &:hover {
           img {
             display: block;
@@ -29,17 +32,275 @@
         }
       }
     }
-    >div:nth-last-of-type(1){
-      >.btn-danger{
+
+    > div:nth-last-of-type(1) {
+      > .btn-danger {
         background-color: @baseColor;
       }
+
       > .btn {
         padding: 3px 15px;
       }
+
       > .btn-link {
         color: #333;
+
         &:hover {
           text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+/*导航样式*/
+.wjs_nav {
+  &.navbar {
+    margin-bottom: 0;
+  }
+
+  .navbar-brand {
+    height: 80px;
+    line-height: 50px;
+    color: @baseColor;
+
+    .wjs_logo {
+      height: 50px;
+    }
+  }
+
+  .navbar-nav {
+    > li {
+      > a {
+        line-height: 50px;
+        font-size: 16px;
+      }
+
+      > a:hover, a:focus {
+        color: #777;
+        border-bottom: 3px solid @baseColor;
+      }
+    }
+
+    .active {
+      > a, a:hover, a:focus {
+        background-color: transparent;
+        border-bottom: 3px solid @baseColor;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    margin-top: 23px;
+  }
+}
+
+/*轮播图样式*/
+.wjs_banner {
+  .carousel-inner {
+    .pcImg {
+      width: 100%;
+      height: 410px;
+      display: block;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .mobileImg {
+      display: block;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/*信息块样式*/
+.wjs_info {
+  padding: 30px;
+
+  .glyphicon {
+    font-size: 26px;
+  }
+
+  .row {
+    > div {
+      margin-top: 20px;
+
+      > a:hover {
+        color: @baseColor;
+      }
+    }
+  }
+}
+
+/*预约块样式*/
+.wjs_reverse {
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+
+  .glyphicon {
+    font-size: 18px;
+  }
+
+  .reverse_now {
+    color: @baseColor;
+    border-bottom: 1px dashed @baseColor;
+  }
+
+  a:hover {
+    color: @baseColor;
+  }
+}
+
+/*产品块样式*/
+.wjs_product {
+  clear: both;
+  background-color: #eee;
+  padding: 20px;
+  /*导航项样式修改*/
+
+  .nav-tabs {
+    > li {
+      margin-bottom: 0;
+      padding: 0 15px;
+
+      > a {
+        line-height: 50px;
+        border: none;
+        background-color: transparent;
+      }
+
+      > a:hover {
+        border-bottom: 3px solid @baseColor;
+      }
+
+      &.active {
+        > a, a:hover, a:focus {
+          border: none;
+          border-radius: 0;
+          background-color: #eee;
+          border-bottom: 3px solid @baseColor;
+        }
+      }
+    }
+  }
+
+  /*产品详细信息块样式*/
+
+  .wjs_pBox {
+    height: 150px;
+    margin-top: 20px;
+    background-color: #fff;
+
+    .wjs_pLeft {
+      margin-right: 100px;
+      height: 150px;
+      padding-top: 10px;
+
+      > p {
+        width: 100%;
+        text-align: center;
+      }
+
+      .row {
+        margin-left: -10px;
+        margin-right: -10px;
+
+        > div {
+          font-size: 12px;
+        }
+
+        > div:nth-of-type(2n) {
+          text-align: right;
+        }
+      }
+    }
+
+    .wjs_pRight {
+      position: absolute;
+      width: 100px;
+      height: 150px;
+      top: 20px;
+      right: 15px;
+      border-left: 1px dashed #ccc;
+      text-align: center;
+      padding-top: 30px;
+
+      > .wjs_tip {
+        width: 100%;
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        > span {
+          cursor: pointer;
+        }
+
+        > span:first-of-type {
+          color: red;
+          border: 1px solid red;
+        }
+
+        > span:last-of-type {
+          color: blue;
+          border: 1px solid blue;
+        }
+      }
+
+      > b {
+        font-size: 40px;
+        color: @baseColor;
+      }
+
+      > sub {
+        bottom: 0;
+        color: @baseColor;
+      }
+
+      &::before, &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #eee;
+        position: absolute;
+        left: 0;
+      }
+
+      &::before {
+        top: -5px;
+        box-shadow: 0 -1px 1px #ddd inset;
+      }
+
+      &::after {
+        bottom: -5px;
+        box-shadow: 0 1px 1px #ddd inset;
+      }
+    }
+
+    &.active {
+      background-color: #f00;
+
+      > .wjs_pRight {
+        > b, sub, p {
+          color: #fff;
+        }
+      }
+
+      > .wjs_pLeft {
+        color: #fff;
+        position: relative;
+        &::before {
+          content: 'xx';
+          position: absolute;
+          top: 5px;
+          left: 5px;
         }
       }
     }

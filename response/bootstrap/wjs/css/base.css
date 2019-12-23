@@ -37,14 +37,6 @@ input, button {
     outline: none;
 }
 
-.clearfix::before, .clearfix::after {
-    content: '';
-    display: block;
-    height: 0;
-    line-height: 0;
-    clear: both;
-    visibility: hidden;
-}
 
 /*自定义字体*/
 /*@font-face {*/
