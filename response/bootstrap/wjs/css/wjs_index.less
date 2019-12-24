@@ -162,6 +162,12 @@
   clear: both;
   background-color: #eee;
   padding: 20px;
+
+  .tabs_parent {
+    width: 100%;
+    overflow: hidden;
+  }
+
   /*导航项样式修改*/
 
   .nav-tabs {
@@ -189,6 +195,7 @@
       }
     }
   }
+
 
   /*产品详细信息块样式*/
 
@@ -296,6 +303,7 @@
       > .wjs_pLeft {
         color: #fff;
         position: relative;
+
         &::before {
           content: 'xx';
           position: absolute;
@@ -304,5 +312,115 @@
         }
       }
     }
+  }
+}
+
+/*新闻块样式*/
+.wjs_news {
+  padding: 20px;
+
+  .wjs_nTitle {
+    line-height: 50px;
+    font-size: 25px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      position: absolute;
+      bottom: -4px;
+      right: -8px;
+    }
+  }
+  /*添加虚线样式*/
+  .wjs_newsLine {
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    border-left: 1px dashed @baseColor;
+    top: 0;
+    left: 45px;
+  }
+
+  .nav-tabs {
+    border-bottom: none;
+    position: relative;
+    /*添加虚线样式---伪元素需要父元素有具体的宽高值（样式中设置的宽高值）*/
+    /*&::before{
+      content: '';
+      width: 1px;
+      height: 100%;
+      position: absolute;
+      border-left: 1px dashed @baseColor;
+      top: 0;
+      left: 0;
+    }*/
+    > li {
+      margin-bottom: 60px;
+
+      > a {
+        background-color: #ccc;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        border: none;
+      }
+
+      > a:hover {
+        background-color: @baseColor;
+        border: none;
+      }
+
+      &.active {
+        > a, a:hover, a:focus {
+          border: none;
+          background-color: @baseColor;
+        }
+      }
+
+      .glyphicon {
+        font-size: 30px;
+        color: #fff;
+        margin-top: 3px;
+      }
+    }
+
+    > li:last-of-type {
+      margin-bottom: 0;
+    }
+    /*使用媒体查询设置w--768-992之间li元素的样式*/
+    @media screen and (min-width: 768px) and (max-width: 992px){
+      >li{
+        margin: 20px 30px;
+      }
+    }
+    @media screen and (max-width: 768px){
+      >li {
+        margin: 20px 0;
+        width: 25%;
+      }
+    }
+  }
+
+  .wjs_newsList{
+    >li{
+      line-height: 60px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/*合作伙伴样式*/
+.wjs_partner{
+  text-align: center;
+  img {
+    width: 100%;
   }
 }

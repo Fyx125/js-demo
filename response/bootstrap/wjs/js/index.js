@@ -26,22 +26,35 @@ $(function () {
     }).trigger('resize');
 
     //添加移动端的滑动操作
-    var startX,endX;
+    var startX, endX;
     var carousel_inner = $('.carousel-inner')[0];
 
     var carousel = $('.carousel');
-    carousel_inner.addEventListener('touchstart',function (e) {
+    carousel_inner.addEventListener('touchstart', function (e) {
         startX = e.targetTouches[0].clientX;
     });
-    carousel_inner.addEventListener('touchend',function (e) {
+    carousel_inner.addEventListener('touchend', function (e) {
         endX = e.changedTouches[0].clientX;
         if (endX - startX > 0) {
             carousel.carousel('prev');
         } else if (endX - startX < 0) {
             carousel.carousel('next');
         }
-    })
+    });
 
     //添加导航栏的移动端滑动效果
-    
+    var ul = $('.wjs_product .nav-tabs');
+    var lis = ul.find('li');
+    var totalWidth = 0;
+    lis.each(function (index, value) {
+        totalWidth += $(value).innerWidth();
+    });
+    ul.width(totalWidth);
+
+    //滑动插件
+    var myScroll = new IScroll('.tabs_parent', {
+        //设置水平滑动
+        scrollX: true,
+        scrollY: false
+    })
 });

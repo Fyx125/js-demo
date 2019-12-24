@@ -119,6 +119,10 @@
   /*导航项样式修改*/
   /*产品详细信息块样式*/
 }
+.wjs_product .tabs_parent {
+  width: 100%;
+  overflow: hidden;
+}
 .wjs_product .nav-tabs > li {
   margin-bottom: 0;
   padding: 0 15px;
@@ -234,5 +238,102 @@
   position: absolute;
   top: 5px;
   left: 5px;
+}
+/*新闻块样式*/
+.wjs_news {
+  padding: 20px;
+  /*添加虚线样式*/
+}
+.wjs_news .wjs_nTitle {
+  line-height: 50px;
+  font-size: 25px;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  position: relative;
+}
+.wjs_news .wjs_nTitle::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  position: absolute;
+  bottom: -4px;
+  right: -8px;
+}
+.wjs_news .wjs_newsLine {
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  border-left: 1px dashed #e92322;
+  top: 0;
+  left: 45px;
+}
+.wjs_news .nav-tabs {
+  border-bottom: none;
+  position: relative;
+  /*添加虚线样式---伪元素需要父元素有具体的宽高值（样式中设置的宽高值）*/
+  /*&::before{
+      content: '';
+      width: 1px;
+      height: 100%;
+      position: absolute;
+      border-left: 1px dashed @baseColor;
+      top: 0;
+      left: 0;
+    }*/
+  /*使用媒体查询设置w--768-992之间li元素的样式*/
+}
+.wjs_news .nav-tabs > li {
+  margin-bottom: 60px;
+}
+.wjs_news .nav-tabs > li > a {
+  background-color: #ccc;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: none;
+}
+.wjs_news .nav-tabs > li > a:hover {
+  background-color: #e92322;
+  border: none;
+}
+.wjs_news .nav-tabs > li.active > a,
+.wjs_news .nav-tabs > li.active a:hover,
+.wjs_news .nav-tabs > li.active a:focus {
+  border: none;
+  background-color: #e92322;
+}
+.wjs_news .nav-tabs > li .glyphicon {
+  font-size: 30px;
+  color: #fff;
+  margin-top: 3px;
+}
+.wjs_news .nav-tabs > li:last-of-type {
+  margin-bottom: 0;
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .wjs_news .nav-tabs > li {
+    margin: 20px 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wjs_news .nav-tabs > li {
+    margin: 20px 0;
+    width: 25%;
+  }
+}
+.wjs_news .wjs_newsList > li {
+  line-height: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*合作伙伴样式*/
+.wjs_partner {
+  text-align: center;
+}
+.wjs_partner img {
+  width: 100%;
 }
 /*# sourceMappingURL=wjs_index.css.map */

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <script type="text/javascript">
+        (function(doc, win) {
+            setRem();
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function() {
+                    setRem();
+                };
+            if (!doc.addEventListener)
+                return;
+            win.addEventListener(resizeEvt, recalc, false);
+            // doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+
+        function setRem() {
+            var docEl = document.documentElement;
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) {
+                return;
+            }
+            //Chrome包括其内核的webview有最小字体12px的限制，建议以1080px宽度下100px作为1rem基准，以10px为基准缩放程度极其有限
+            //视设计稿而定 ：1080 640 750 ...
+            docEl.style.fontSize = 100 * (clientWidth / 1080) + 'px';
+        }
+    </script>
+    <style type="text/css" rel="stylesheet">
+        div {
+            /*屏幕宽度一半大小*/
+            height: 3.2rem;
+            width: 3.2rem;
+            font-size: 1rem;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+<div>aaa</div>
+</body>
+</html>
