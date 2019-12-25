@@ -3,6 +3,7 @@ $(function () {
     //初始化工具提示
     $('[data-toggle="tooltip"]').tooltip();
 
+    //轮播图
     //获取所有item
     var items = $('.carousel-inner .item');
     //监听屏幕尺寸大小改变
