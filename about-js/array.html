@@ -39,7 +39,15 @@
     // var a=[1,2,3];
     // console.log(a.concat([1,2,3,[3,4,5]));  //不会去重 不会递归扁平化数组
 
-
+    //---------------------------数组去重---------------------------
+    var arr = ['1',1,1,2,3,'null',null,NaN,NaN,undefined,undefined,null,true,true,false,'false'];
+    function distinct(array) {
+        var obj = {};
+        return array.filter(function (item, index, array) {
+            return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true);
+        })
+    }
+    console.log(distinct(arr));
 </script>
 </body>
 </html>
