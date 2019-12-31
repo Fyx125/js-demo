@@ -10,6 +10,7 @@
             // 配置路由----路由表
             let router=new VueRouter({
                 routes:[
+                    {path:'/',redirect:'/user/111'},    //重定向
                     {
                         path: '/user/:id',
                         component:{
@@ -98,6 +99,12 @@
             }).$mount('#div1');
         };
     </script>
+    <style type="text/css" rel="stylesheet">
+        .router-link-active{
+            font-weight: 700;
+            color: #f00;
+        }
+    </style>
 </head>
 <body>
 <div id="div1">
