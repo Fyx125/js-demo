@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>render</title>
+    <script src="vue.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="div1">
+<p>test</p>
+</div>
+<script type="text/javascript">
+    var login = {
+        template: '<h1>这是登录组件</h1>'
+    };
+
+    var vm = new Vue({
+        el:'#div1',
+        data:{},
+        methods:{},
+        render:function (createElements) {          //会将el选择的节点里面所有的内容覆盖
+            return createElements(login);
+        }
+    })
+</script>
+</body>
+</html>
