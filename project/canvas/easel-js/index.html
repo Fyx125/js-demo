@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            background-color: #cccccc;
+            text-align: center;
+        }
+
+        #c1 {
+            background-color: #ffffff;
+        }
+    </style>
+    <script type="text/javascript" src="easeljs.js"></script>
+</head>
+<body>
+<canvas id="c1" width="1000px" height="600px"></canvas>
+
+<script type="text/javascript">
+
+        var canvas = document.getElementById('c1');
+        var stage = new createjs.Stage(canvas);
+
+        stage.addEventListener("stagemousedown", clickCanvas);
+        stage.addEventListener("stagemousemove", moveCanvas);
+
+        var data = {
+            images: ['1.png'],
+            frames: {width: 20, height: 20, regX: 10, regY: 10}
+        };
+        var sprite = new createjs.Sprite(new createjs.SpriteSheet(data));
+        createjs.Ticker.setFPS(20);
+        createjs.Ticker.addEventListener("tick", tick);
+
+        function tick(e) {
+            var num = stage.getNumChildren();
+            for (var i = num - 1; i > 0; i--) {
+                var s = stage.getChildAt(i);
+                s.vY += 2;
+                s.vX += 1;
+                s.x += s.vX;
+                s.y += s.vY;
+                s.scaleX = s.scaleY = s.scaleX + s.vS;
+                s.alpha += s.vA;
+                if (s.alpha <= 0 || s.y > canvas.height) {
+                    stage.removeChildAt(i);
+                }
+            }
+            stage.update(e);
+        }
+
+        function clickCanvas(e) {
+            addStar(Math.random() * 200 + 100, stage.mouseX, stage.mouseY, 2);
+        }
+
+        function moveCanvas(e) {
+            addStar(Math.random() * 2 + 1, stage.mouseX, stage.mouseY, 1);
+        }
+
+        function addStar(count, x, y, speed) {
+            for (var i = 0; i < count; i++) {
+                var s = sprite.clone();
+                s.x = x;
+                s.y = y;
+                s.alpha = Math.random() * 0.5 + 0.5;
+                s.scaleX = s.scaleY = Math.random() + 0.3;
+
+                var deg = Math.PI * 2 * Math.random();
+                var v = (Math.random() - 0.5) * 30 * speed;
+                s.vX = Math.cos(deg) * v;
+                s.vY = Math.sin(deg) * v;
+                s.vS = (Math.random() - 0.5) * 0.2; //scale
+                s.vA = -Math.random() * 0.05 - 0.01; //alpha
+                stage.addChild(s);
+            }
+        }
+
+</script>
+</body>
+</html>

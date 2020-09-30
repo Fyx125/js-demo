@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电话号码模糊处理</title>
+</head>
+<body>
+<script type="text/javascript">
+    function phone(mobile, len = 3) {
+        return String(mobile).slice(0, 3) + '*'.repeat(len)+String(mobile).slice(len+3)
+    }
+
+    console.log(phone(11234567890, 6))
+</script>
+</body>
+</html>
